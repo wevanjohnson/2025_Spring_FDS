@@ -32,7 +32,7 @@ Email: w.evan.johnson@rutgers.edu\
 Cell Phone: (801) 472-6951
 
 Co-instructor: Arthur VanValkenburg\
-Email: ajv120@njms.rutgers.edu\
+Email: ajv120@njms.rutgers.edu
 
 ### OFFICE HOURS: 
 **Instructor:** Dr. Johnson will be available virtually by appointment only. Email or text him any time to set up a time to meet!
