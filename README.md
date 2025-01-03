@@ -1,6 +1,6 @@
 # Fundamentals of Data Science
 
-## Spring (April-June), 2025
+## Spring (Jan-Feb), 2025
 
 ### COURSE DESCRIPTION:
 
