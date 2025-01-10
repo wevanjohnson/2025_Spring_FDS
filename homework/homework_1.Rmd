@@ -5,6 +5,8 @@ date: Due Friday, January 17th, 2025
 output: pdf_document
 ---
 
+Please answer the following questions and put your answers in a Word Document or PDF. You will be able to submit your document under the Assignments tab on Canvas. 
+
 ## Homework Questions, Part 1: Ethical Considerations (50 points)
 
 **Instructions:** For each of the following questions, provide a thoughtful (but brief) response that demonstrates your understanding of ethical considerations in data science. Your answers should reference relevant principles, frameworks, or real-world examples where applicable. Aim for clarity, directness, and critical thinking. For the examples provided with each question, discuss how they relate to the broader ethical challenges posed by the topic. Be sure to support your arguments with evidence or reasoning, and consider multiple perspectives where appropriate.  
