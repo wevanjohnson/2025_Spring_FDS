@@ -397,11 +397,25 @@ knitr::include_graphics(file.path(img_path, "openmethods.png"))
 knitr::include_graphics(file.path(img_path, "openreporting.png"))
 ```
 
-## Thank you!
-\center
-```{r, echo=FALSE,out.width="50%"}
-knitr::include_graphics(file.path(img_path, "smiley.png"))
-```
+## Attention: Terminal
+\Large
+**Note: For the next lecture, you need access to a Terminal!** 
+
+For Mac Users, the work is already done for you, just: 
+
+- Open the **Terminal** App on your Mac, or
+- Use the terminal directly from RStudio
+
+
+## Attention: Windows Users
+\large
+- **Git Bash** is a terminal for Windows that provides a Git command-line experience.
+  - It allows users to interact with their repositories and run shell commands.
+
+- Visit the official Git website: [https://git-scm.com/](https://git-scm.com/)
+  - Click on the "Download for Windows" button and install the program.
+- Once installed, launch Git Bash by searching for it in the Windows Start Menu.
+
 
 ## Session Info
 \tiny

@@ -73,7 +73,8 @@ Before you start, pick a name convention that you will use to systematically nam
 The Tidyverse Style Guide^[https://style.tidyverse.org/] is highly recommended!
 
 # The Terminal
-## Attendtion: Windows users
+
+## Attention: Windows users
 \large
 - **Git Bash** is a terminal for Windows that provides a Git command-line experience.
 - It allows users to interact with their repositories and run shell commands.
