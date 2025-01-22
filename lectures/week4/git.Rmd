@@ -252,6 +252,11 @@ git push -u origin main
 \includegraphics[width=3.75in]{git/pull.png}
 \end{center}
 
+## Next Lecture: Advanced R Programming
+
+\Large
+The next lecture will be on advanced R programming. You will need to have R and RStudio installed on your computer!
+
 ## Session info
 \tiny
 ```{r session info}

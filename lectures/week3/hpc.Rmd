@@ -38,7 +38,7 @@ Why High Performance Computing?
 
 ## HPC at Rutgers University 
 
-At Rugters, the primary HPC resources are governed by the [Rutgers Office of Advanced Research and Computing (OARC)](https://sites.google.com/view/cluster-user-guide/amarel/welcome?authuser=0). They provide significant online and synchronous (in person) resources for HPC, along with training in batch submission, programming languages, parallel programming, distributed systems, and HPC architectures.
+At Rutgers, the primary HPC resources are governed by the [Rutgers Office of Advanced Research and Computing (OARC)](https://sites.google.com/view/cluster-user-guide/amarel/welcome?authuser=0). They provide significant online and synchronous (in person) resources for HPC, along with training in batch submission, programming languages, parallel programming, distributed systems, and HPC architectures.
 
 # History of High-Performance Computing
 
@@ -271,6 +271,14 @@ You first need to attach R to your session (using Amarel Desktop):
 
 SLURM is a powerful tool for managing batch job scheduling and resource allocation on cluster computing systems.
 By understanding key concepts and following best practices, users can effectively utilize SLURM to submit, manage, and monitor computational tasks on HPC clusters. Explore documentation and seek support from the cluster administrators or user community to learn more about SLURM and optimize your workflow.
+
+## Next Lecture: Git and GitHub
+
+For the next lecture you will need to install git and get a GitHub account. \vskip .1in
+
+After installing git, go get a GitHub account. Go to [https://github.com/](https://github.com/). You will see a link to sign up in the top right corner. \vskip .1in
+
+Pick a name carefully! Something short, related to your name, and professional. Remember that you will use this to share code with others. You might be sharing this with potential collaborators or future employers!
 
 
 ## Session info

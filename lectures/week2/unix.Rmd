@@ -320,6 +320,36 @@ There are many reference books as well. Here are some particularly clear, succin
 * https://gumroad.com/l/bite-size-linux 
 * https://jvns.ca/blog/2018/08/05/new-zine--bite-size-command-line/ 
 
+# Next Lecture: Introduction to the Amarel HPC Cluster
+
+## Next Lecture: HPC at Rutgers University 
+
+At Rutgers, the primary High Performance Computing (HPC) resources are governed by the [Rutgers Office of Advanced Research and Computing (OARC)](https://sites.google.com/view/cluster-user-guide/amarel/welcome?authuser=0). They provide significant online and synchronous (in person) resources for HPC, along with training in batch submission, programming languages, parallel programming, distributed systems, and HPC architectures.
+
+## Next Lecture: HPC at Rutgers
+\center 
+![](unixfigs/Amarel.png){width=90%}
+
+[Click here for a short video about the Amarel cluster!](https://www.youtube.com/watch?v=GECyL_5NcAk&t=25s)
+
+
+## Next Lecture: Getting Started with Amarel
+If you are off campus, you will need access to VPN:
+
+\vskip .1in
+[Click Here for Rutgers VPN instructions for Windows Users](https://ithelp.rutgers.edu/sp?id=kb_article&sysparm_article=KB0015634&sys_kb_id=ab3e9a5c1b18c2d0723a99b51a4bcb1b&spa=1)
+
+\vskip .1in
+[Click Here for Rutgers VPN instructions for Mac Users](https://ithelp.rutgers.edu/sp?id=kb_article&sysparm_article=KB0015620&sys_kb_id=6a95445e1b777110727cc9d2604bcbb5&spa=1)
+
+
+## Next Lecture: Getting Started with Amarel
+
+1. [**Request Access (Click Here)**: OARC webpage to request access to Amarel](https://oarc.rutgers.edu/amarel-cluster-access-request/)
+2. **Training Workshops**: Attend training workshops offered by OARC to learn how to use Amarel effectively.
+3. [**Documentation and Support (Click Here)**: Explore documentation and seek support from OARC staff and the user community.](https://sites.google.com/view/cluster-user-guide)
+4. **Start Small**: Begin with small-scale experiments and gradually scale up as needed.
+
 ## Session info
 \tiny
 ```{r session info}
