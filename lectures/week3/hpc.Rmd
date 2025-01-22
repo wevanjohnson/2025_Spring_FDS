@@ -274,9 +274,19 @@ By understanding key concepts and following best practices, users can effectivel
 
 ## Next Lecture: Git and GitHub
 
-For the next lecture you will need to install git and get a GitHub account. \vskip .1in
+\Large
+For the next lecture you will need to install git and get a GitHub account. 
+\vskip .2in
 
-After installing git, go get a GitHub account. Go to [https://github.com/](https://github.com/). You will see a link to sign up in the top right corner. \vskip .1in
+To install git on Windows, install GitBash. Visit the official Git website: [https://git-scm.com/](https://git-scm.com/), and then click on the "Download for Windows" button.
+\vskip .2in
+
+To install git on Mac, follow these instructions: [https://git-scm.com/downloads/mac](https://git-scm.com/downloads/mac)
+
+## Next Lecture: Git and GitHub
+\Large
+After installing git, go get a GitHub account. Go to [https://github.com/](https://github.com/). You will see a link to sign up in the top right corner. 
+\vskip .2in
 
 Pick a name carefully! Something short, related to your name, and professional. Remember that you will use this to share code with others. You might be sharing this with potential collaborators or future employers!
 
