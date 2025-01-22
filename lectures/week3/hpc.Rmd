@@ -1,0 +1,281 @@
+---
+title: "Introduction to High Performance Computing"
+subtitle: "GSND 5345Q, FDS"
+author: | 
+  | W. Evan Johnson, Ph.D.
+  | Professor, Division of Infectious Disease
+  | Director, Center for Data Science
+  | Rutgers University -- New Jersey Medical School
+date: "`r Sys.Date()`"
+header-includes:
+   - \usepackage{amsmath}
+output: 
+  beamer_presentation:
+    theme: "CambridgeUS"
+editor_options: 
+  chunk_output_type: console
+tables: true
+---
+# Introduction to High Performance Computing
+
+## Acknowedgments 
+Thanks to the [Rutgers Office of Advanced Research and Computing (OARC)](https://sites.google.com/view/cluster-user-guide/amarel/welcome?authuser=0), Google, Wikipedia (images), and [ChatGPT](https://chat.openai.com) for helping me make these slides!
+
+\vskip .1in
+In addition, some information was obtained from the following online slides [(click here).](https://www.math-cs.gordon.edu/courses/cps343/presentations/History_and_Overview_of_HPC.pdf)
+
+## What is High Performance Computing?
+
+**High Performance Computing (HPC)** is the use of parallel processing for running advanced application programs efficiently, reliably, and quickly. It involves aggregating computing power in a way that delivers much higher performance than a typical desktop or workstation.
+
+\vskip .1in
+
+Why High Performance Computing?
+
+- HPC allows users to tackle complex problems that require substantial computational resources.
+- It enables simulations, data analysis, and modeling that would be infeasible on standard computers.
+- Applications include weather forecasting, molecular modeling, financial modeling, and more.
+
+## HPC at Rutgers University 
+
+At Rugters, the primary HPC resources are governed by the [Rutgers Office of Advanced Research and Computing (OARC)](https://sites.google.com/view/cluster-user-guide/amarel/welcome?authuser=0). They provide significant online and synchronous (in person) resources for HPC, along with training in batch submission, programming languages, parallel programming, distributed systems, and HPC architectures.
+
+# History of High-Performance Computing
+
+## Early Beginnings
+
+**1940s-1950s**: The origins of HPC can be traced back to the development of early computers, such as the ENIAC (Electronic Numerical Integrator and Computer) and UNIVAC (Universal Automatic Computer).
+
+\center
+![](hpc/Classic_shot_of_the_ENIAC.jpg){width=49%}
+![](hpc/Univac_I_Census_dedication.jpg){width=46%}
+
+Used for military (cracking Nazi codes) and scientific purposes, including calculations for atomic bomb development and weather forecasting.
+
+## Emergence of Supercomputers
+
+**1960s-1970s**: The concept of supercomputers emerged with machines like the CDC 6600 and Cray-1.
+
+![](hpc/1920px-CDC_6600.jc.jpg){width=55%}
+![](hpc/Science_Museum_20180227_132902_(49362732462).jpg){width=40%}
+
+These systems introduced vector processing and specialized architectures optimized for scientific and engineering applications.
+
+## Parallel Processing and Clusters
+
+**Seymore Cray** was an American electrical engineer and supercomputer architect who designed a series of computers that were the fastest in the world for decades, and founded __Cray Research__ which built many of these machines. He is often called "the father of supercomputing," and has been credited with creating the supercomputer industry.
+
+\vskip .1 in
+However, Cray resisted the massively parallel solution to high-speed computing, offering a variety of reasons that it would never work as well as one very fast processor. He famously quipped "If you were plowing a field, which would you rather use: two strong oxen or 1024 chickens?" 
+
+
+## Parallel Processing and Clusters
+**1980s-1990s**: During the speed in supercomputers was primarily achieved through two mechanisms:
+
+- **Vector processors:** these were designed using a pipeline architecture to rapidly perform a single floating point operation on a large amount of data. Achieving high performance depended on data arriving in the processing unit in an uninterrupted stream.
+- **Shared memory multiprocessing:** a small number (up to 8) processors with access to the same memory space. Interprocess communication took place via the shared memory.
+
+## Parallel Processing and Clusters
+**1980s-1990s**:Parallel processing became a key focus in HPC, leading to the development of massively parallel supercomputers like the Connection Machine and Thinking Machines CM-5.
+
+- Clusters of commodity hardware also gained popularity due to their cost-effectiveness and scalability.
+- Memory contention was a major impediment to increasing speed; the vector processors required high-speed access to memory but multiple processors working simultaneously created contention for memory that reduced access speed.
+- Vector processing worked well with 4 or 8 processors, but memory contention would prevent a 64 or 128 processor machine from working efficiently.
+
+## Evolution of HPC Architectures
+
+- **2000s-Present**: HPC architectures continue to evolve with the rise of multi-core processors, accelerators (e.g., GPUs), and specialized interconnects. Most unviversities develop their own HPC resources. 
+
+\center 
+![](hpc/OARC-2-19-2020-32-scaled.jpg)
+
+
+
+## Key Components of High Performance Computing
+
+1. **Hardware**: Specialized computing infrastructure, including clusters, supercomputers, and accelerators like GPUs.
+2. **Software**: Tools and libraries for parallel programming, job scheduling, and performance optimization.
+3. **Networking**: High-speed interconnections for data exchange between computing nodes.
+4. **Parallel Programming Models**: Frameworks and languages for writing parallel applications, such as MPI, OpenMP, and CUDA.
+
+## Typical HPC Architecture
+\center
+![](hpc/architecture.png){width=90%}
+
+## Getting Started with High Performance Computing
+
+1. **Learn Parallel Programming**: Understand parallel programming models and techniques.
+2. **Access to HPC Resources**: Utilize computing clusters or cloud-based HPC services.
+3. **Optimize Code**: Write efficient code and utilize performance profiling tools.
+4. **Collaborate and Learn**: Engage with HPC communities, attend workshops, and collaborate with experienced users.
+
+## Future Trends
+
+- **Usability and Access**: Interactive and online resources such as [OnDemand](https://openondemand.org) have made HPC more accessible. Also, cloud computing such as the Google and Amazon Clouds have made HPC accessible to groups and companies (large and small).
+- **Exascale Computing**: Efforts are underway to achieve exascale computing, capable of performing 10^18 floating point operations per second (FLOPS), with projects like the US Department of Energy's Exascale Computing Project.
+- **Heterogeneous Architectures**: Continued focus on heterogeneous architectures combining CPUs, GPUs, and accelerators to optimize performance for specific workloads.
+- **AI and Machine Learning**: Integration of artificial intelligence (AI) and machine learning techniques into HPC workflows for data analysis, optimization, and predictive modeling.
+
+
+# Introduction to the Amarel HPC Cluster
+
+## HPC at Rutgers
+\center 
+![](hpc/amarel.png){width=90%}
+
+[Click here for a short video about the Amarel cluster!](https://www.youtube.com/watch?v=GECyL_5NcAk&t=25s)
+
+## Key Features of Amarel
+
+1. **Compute Nodes**: Amarel consists of multiple compute nodes with varying specifications, including CPUs and GPUs.
+2. **Parallel File System**: A high-speed parallel file system for storing and accessing large datasets.
+3. **Job Scheduler**: A job scheduling system for managing computing resources efficiently.
+4. **Software Stack**: A comprehensive collection of software packages and libraries for various scientific computing tasks.
+5. **Networking**: High-speed interconnects for fast communication between compute nodes.
+
+## Getting Started with Amarel
+If you are off campus, you will need access to VPN:
+
+\vskip .1in
+[Click here for Rutgers VPN instructions for Windows Users](https://ithelp.rutgers.edu/sp?id=kb_article&sysparm_article=KB0015634&sys_kb_id=ab3e9a5c1b18c2d0723a99b51a4bcb1b&spa=1)
+
+\vskip .1in
+[Click here for Rutgers VPN instructions for Mac Users](https://ithelp.rutgers.edu/sp?id=kb_article&sysparm_article=KB0015620&sys_kb_id=6a95445e1b777110727cc9d2604bcbb5&spa=1)
+
+
+## Getting Started with Amarel
+
+1. [**Request Access**: Contact OARC to request access to Amarel](https://oarc.rutgers.edu/amarel-cluster-access-request/)
+2. **Training Workshops**: Attend training workshops offered by OARC to learn how to use Amarel effectively.
+3. [**Documentation and Support**: Explore documentation and seek support from OARC staff and the user community.](https://sites.google.com/view/cluster-user-guide)
+4. **Start Small**: Begin with small-scale experiments and gradually scale up as needed.
+
+# Introduction to OnDemand for HPC Clusters
+
+## What is OnDemand?
+
+- OnDemand is a web-based platform that provides a user-friendly interface for accessing and managing (HPC) clusters.
+- It simplifies the process of submitting and monitoring jobs, accessing software, and managing data on HPC systems.
+- Go to: [http://ondemand.hpc.rutgers.edu](http://ondemand.hpc.rutgers.edu) (VPN for off campus).
+
+![](hpc/ondemand.png)
+
+## Key Features of OnDemand
+
+1. **Web Interface**: Access HPC resources through a web browser from anywhere with an internet connection.
+2. **Job Submission**: Submit and manage computational jobs without needing to use command-line interfaces.
+3. **File Management**: Upload, download, and manage files and data on the HPC cluster directly from the browser.
+4. **Interactive Sessions**: Launch interactive computing sessions for data analysis and exploration.
+5. **Software Environment**: Access a variety of software packages and development tools installed on the HPC cluster.
+
+## Benefits of OnDemand
+
+- **User-Friendly**: OnDemand provides a simplified interface, making HPC resources more accessible to a wider range of users.
+- **Remote Access**: Users can access HPC resources remotely without needing to install any special software.
+- **Increased Productivity**: Streamlined workflows and intuitive interfaces help users focus on their research instead of dealing with technical complexities.
+
+## Accessing Files
+
+![](hpc/ondemand_files.png)
+
+## Accessing the Terminal
+![](hpc/ondemand_terminal_1.png)
+
+![](hpc/ondemand_terminal_2.png)
+
+## Accessing the Amarel Desktop through OnDemand
+![](hpc/ondemand_desktop_1.png)
+
+## Accessing the Amarel Desktop through OnDemand
+![](hpc/ondemand_desktop_2.png)
+
+## Accessing the Amarel Desktop through OnDemand
+![](hpc/ondemand_desktop_3.png)
+
+
+## Accessing the Amarel Desktop through OnDemand
+![](hpc/ondemand_desktop_4.png)
+
+## Accessing the Amarel Desktop through OnDemand
+![](hpc/ondemand_desktop_5.png)
+
+## Accessing the Amarel Desktop through OnDemand
+![](hpc/ondemand_desktop_6.png)
+
+## Accessing R through the terminal
+You first need to attach R to your session (using Amarel Desktop):
+
+```{bash, eval=F}
+[wj183@hal0005 ~]$ module load R
+[wj183@amarel1 ~]$ R
+```
+
+## Accessing the RStudio through OnDemand
+![](hpc/ondemand_rstudio_1.png)
+
+## Accessing the RStudio through OnDemand
+\center
+![](hpc/ondemand_rstudio_2.png){width=80%}
+
+## Accessing the RStudio through OnDemand
+![](hpc/ondemand_rstudio_3.png)
+
+## Accessing the RStudio through OnDemand
+![](hpc/ondemand_rstudio_4.png)
+
+## Accessing the RStudio through OnDemand
+![](hpc/ondemand_rstudio_5.png)
+
+# Introduction to Cluster Batch Job Scheduling with SLURM
+
+## What is SLURM?
+
+- SLURM (Simple Linux Utility for Resource Management) is an open-source job scheduler and resource manager used on many high-performance computing (HPC) clusters.
+- It allows users to submit, manage, and monitor batch jobs on computing clusters efficiently.
+
+## Key Concepts
+
+1. **Partition**: A partition is a logical grouping of compute nodes with similar hardware characteristics or usage policies.
+2. **Job Script**: A job script is a text file containing instructions for the scheduler, including job parameters, resource requests, and executable commands.
+3. **Resource Allocation**: Users specify the required resources for their jobs, such as CPUs, memory, and runtime, in the job script.
+4. **Job Status**: Users can monitor the status of their submitted jobs, including waiting, running, completed, or failed, using SLURM commands or monitoring tools.
+
+## Submitting a Job with SLURM
+
+1. **Create a Job Script**: Write a job script using a text editor, specifying job parameters and commands.
+2. **Submit the Job**: Use the `sbatch` command to submit the job script to SLURM.
+3. **Monitor Job Status**: Check the status of the submitted job using commands like `squeue` or monitoring tools provided by SLURM.
+4. **Retrieve Results**: Once the job completes, retrieve the results and data generated by the job from the designated output directory.
+
+## Example Job Script
+```{bash, eval=F}
+#!/bin/bash
+#SBATCH --job-name=my_job
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=4
+#SBATCH --mem=8G
+#SBATCH --time=1:00:00
+
+# Execute your command here
+./my_executable input_file.txt > output_file.txt
+```
+
+## Best Practices
+
+- Resource Requests: Specify accurate resource requirements to ensure optimal resource allocation and job performance.
+- Job Prioritization: Understand the partition structure and prioritize jobs accordingly to optimize resource utilization.
+- Job Dependencies: Use job dependencies to sequence jobs and ensure proper execution order when necessary.
+- Error Handling: Include error handling and logging mechanisms in job scripts to facilitate troubleshooting and debugging.
+
+## Conclusion
+
+SLURM is a powerful tool for managing batch job scheduling and resource allocation on cluster computing systems.
+By understanding key concepts and following best practices, users can effectively utilize SLURM to submit, manage, and monitor computational tasks on HPC clusters. Explore documentation and seek support from the cluster administrators or user community to learn more about SLURM and optimize your workflow.
+
+
+## Session info
+\tiny
+```{r session info}
+sessionInfo()
+```
+

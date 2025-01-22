@@ -1,0 +1,260 @@
+---
+title: "Introduction to Git and GitHub"
+subtitle: "GSND 5345Q, FDS"
+author: | 
+  | W. Evan Johnson, Ph.D.
+  | Professor, Division of Infectious Disease
+  | Director, Center for Data Science
+  | Rutgers University -- New Jersey Medical School
+date: "`r Sys.Date()`"
+header-includes:
+   - \usepackage{amsmath}
+output: 
+  beamer_presentation:
+    theme: "CambridgeUS"
+editor_options: 
+  chunk_output_type: console
+tables: true
+---
+# Introduction to Git and GitHub
+
+## Git and GitHub Introduction
+
+Here we will provide some details on Git and GitHub, but we are only scratching the surface. Here are some resources to help you further:
+
+* Codeacademy: https://www.codecademy.com/learn/learn-git
+* GitHub Guides: https://guides.github.com/activities/hello-world/
+* Try Git tutorial: https://try.github.io/levels/1/challenges/1
+* Happy Git and GitHub for the useR: http://happygitwithr.com/
+
+## Git and GitHub Introduction
+
+There are three main reasons to use Git and GitHub.
+
+* \underline{Sharing:} GitHub allows us to easily share code!
+* \underline{Collaborating:} Multiple people make changes to code and keep versions synched. GitHub has a special utility, called a **pull request**, that can be used by anybody to suggest changes to your code. 
+* \underline{Version control:} Using `git` permits us to keep track of changes, revert back to previous versions, and create **branches** in to test out ideas, then decide if we **merge** with the original.
+
+# GitHub Repositories
+
+## GitHub accounts
+
+After installing git, go get a GitHub account. Go to [https://github.com/](https://github.com/). You will see a link to sign up in the top right corner. \vskip .2in
+
+Pick a name carefully! Something short, related to your name, and professional. Remember that you will use this to share code with others. You might be sharing this with potential collaborators or future employers!
+
+## GitHub repositories
+
+A GitHub repository allows you to have two copies of your code: one on your computer and one on GitHub. If you add collaborators, then each will have a copy on their computer.\vskip .1in 
+
+The GitHub copy is usually considered the **main** copy (previously called the **master**). Git will help you keep all the different copies synced.
+
+## GitHub repositories
+
+The first step is to initialize the repository on GitHub. You will have a page on GitHub with the URL: [http://github.com/username](http://github.com/username). On your account, you can click on `Repositories` and then click on `New` to create a new repo:
+
+\begin{center}
+\includegraphics[height=1.75in]{git/VirtualBox_Windows-7-Enterprise_23_03_2018_14_23_39.png}
+\includegraphics[height=1.75in]{git/VirtualBox_Windows-7-Enterprise_23_03_2018_14_23_40.png}
+\end{center}
+
+## GitHub repositories
+Choose a good descriptive name, for this example make a repo named "FDSLectures". The next step will be to **clone** it on your computer using the terminal. Copy the link to connect to this repo for the next step.
+\begin{center}
+\includegraphics[height=1.75in]{git/VirtualBox_Windows-7-Enterprise_23_03_2018_14_23_42.png}
+\includegraphics[height=1.75in]{git/VirtualBox_Windows-7-Enterprise_23_03_2018_14_24_19.png}
+\end{center}
+
+## GitHub repositories
+GitHub also allows you to **fork** others' repos. Go to [https://github.com/wevanjohnson/my.package](https://github.com/wevanjohnson/my.package)
+\begin{center}
+\includegraphics[height=1.75in]{git/fork1.png}
+\includegraphics[height=1.75in]{git/fork2.png}
+\end{center}
+Click `fork` in the top right and this will create a fork of the repository in your GitHub account.  
+
+# Git Basics
+
+## Git Setup
+First let `git` know who you are--will make it easier to connect with GitHub. In a terminal window use the `git config` command:
+
+```{bash, eval=F}
+git config --global user.name "My Name"
+git config --global user.mail "my@email.com"
+```
+
+## Git Setup
+The main actions in git are to:
+
+1. **pull** changes from the remote GitHub repo
+2. **add** files, or as we say in the `git` lingo: **stage** files
+3. **commit** changes to the local repo
+4. **push** changes to the **remote** GitHub repo
+
+
+## Git Setup
+To effectively permit version control and collaboration in `git`, files move across four different areas: 
+
+\begin{center}
+\includegraphics[width=4.5in]{git/git-layout.png}
+\end{center}
+
+But how does it all get started? We can clone an existing repo or initialize one. We will explore cloning first.
+
+## Cloning Git repositories
+We will **clone** your existing my.package **upstream repository** to your local computer. \vskip .2in
+
+What does clone mean? We are going to actually copy the entire `git` structure, files and directories to all stages: working directory, staging area, and local repository. 
+
+\begin{center}
+\includegraphics[width=4.5in]{git/git-clone.png}
+\end{center}
+
+
+## Cloning Git repositories
+
+Open a terminal and type:
+
+```{bash, eval=F}
+pwd
+mkdir git-example
+cd git-example
+git clone https://github.com/yourusername/my.package.git
+cd my.package
+ls
+```
+
+## Cloning Git repositories
+
+Note: the **working directory** is the same as your Unix working directory. When you edit files (e.g., RStudio), you change the files in this directory. `git` can tell you how these files relate to the upstream directory: 
+
+```{bash, eval=F}
+git status
+```
+
+\begin{center}
+\includegraphics[width=4.5in]{git/git-status.png}
+\end{center}
+
+## Working with Git repositories
+
+Now lets add some changes to the local repository, open the `DESCRIPTION` file in the my.package directory, and add your name as an author of the package. \vskip .2in
+
+And, as we will do this soon, change the description in the file to include `multiplication`.
+
+## Working with Git repositories
+
+Now lets **add** the changes to the staging area and **commit** the changes to the local Git directory: 
+
+```{bash, eval=F}
+git add DESCRIPTION
+```
+
+\begin{center}
+\includegraphics[width=3.5in]{git/git-add.png}
+\end{center}
+
+```{bash, eval=F}
+git commit -m "adding my name as an author"
+```
+
+\begin{center}
+\includegraphics[width=3.5in]{git/git-commit.png}
+\end{center}
+
+## Working with Git repositories
+
+Now we can **push** the changes to the remote repo: 
+
+```{bash, eval=F}
+git push
+```
+
+\begin{center}
+\includegraphics[width=4.5in]{git/git-push.png}
+\end{center}
+
+## Working with Git repositories
+
+We can also **fetch** any changes on the remote repo (how do you think this is different from `clone`?):
+
+```{bash, eval=F}
+git fetch
+```
+
+\begin{center}
+\includegraphics[width=4.5in]{git/git-fetch.png}
+\end{center}
+
+## Working with Git repositories
+
+And then we need to **merge** these changes to our staging and working areas: 
+
+```{bash, eval=F}
+git merge
+```
+
+\begin{center}
+\includegraphics[width=4.5in]{git/git-merge.png}
+\end{center}
+
+## Working with Git repositories
+
+Often we want to change both with one command. For this, we use:
+
+```{bash, eval=F}
+git pull
+```
+
+\begin{center}
+\includegraphics[width=4.5in]{git/git-pull.png}
+\end{center}
+\underline{Important note:} it is often a good idea to pull any changes when you start each day, so as to avoid **conflicts**. 
+
+
+## Working with Git repositories
+:::::::::::::: {.columns}
+:::{.column width="35%"}
+\vskip .1in
+Now lets do something more substantial. \vskip .1in
+
+Create a new file in the `R` directory named `multiply.R` to contain the code displayed at the right. \vskip .1in
+
+(Hint: you can copy the `add.R` file and change it)
+:::
+::: {.column width="65%"}
+\includegraphics[width=3in]{git/product.png}
+:::
+::::::::::::::
+
+Now save the file and use the **add**, **commit**, **push** commands to move it to the local and remote repos. 
+
+# More on Git and GitHub
+
+## Initializing a Git directory (needed for your homework)
+
+What if we already have a local directory and want to move it to a GitHub repository? See the following: 
+
+1. Create a new GitHub repository (e.g., my_fds_homework)
+2. **Initialize** the local repository
+3. Use the **add** and **commit** commands to add to the local repository
+4. Connect the local and remote repos and push:
+```{bash, eval=F}
+git remote add origin \ 
+'https://github.com/username/my_fds_homework.git'
+git push -u origin main
+```
+ 
+## Pull requests (needed for your Homework)
+
+**Pull requests** enable sharing of changes from other branches/forks of a repo. Potential changes can be reviewed before merged into the main branch.
+\begin{center}
+\includegraphics[width=3.75in]{git/pull.png}
+\end{center}
+
+## Session info
+\tiny
+```{r session info}
+sessionInfo()
+```
+
