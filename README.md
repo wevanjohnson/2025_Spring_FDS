@@ -116,8 +116,8 @@ Data Visualization (Week 7)
 
 Final Project Presentations (Week 8)
 
-* 2/24/24: Final student presentations
-* 2/26/24: Final student presentations
+* 2/24/24: Final student presentations (no class)
+* 2/26/24: Final student presentations (no class)
 
 
 ### ADDITIONAL (ASYNCHRONOUS) MODULES 
