@@ -1,0 +1,1328 @@
+---
+title: "Programming Basics"
+author: | 
+  | W. Evan Johnson, Ph.D.
+  | Professor, Division of Infectious Disease
+  | Director, Center for Data Science
+  | Rutgers University -- New Jersey Medical School
+  | w.evan.johnson@rutgers.edu
+date: "`r Sys.Date()`"
+header-includes:
+  - \usepackage{amsmath}
+  - \usepackage{xcolor}
+  - \setbeamercolor{frametitle}{fg=black}
+  - \usepackage{graphicx}
+  - \usebackgroundtemplate{\includegraphics[width=\paperwidth]{rFigs/RH_template_Page_2.png}}
+  - \addtobeamertemplate{frametitle}{\vspace*{.25in}}{\vspace*{.25in}}
+  - \setbeamerfont{frametitle}{size=\huge}
+  - \usepackage{tikz}
+output: 
+  beamer_presentation
+classoption: aspectratio=169 
+editor_options: 
+  chunk_output_type: console
+tables: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.align="center")
+img_path <- "rFigs/"
+library(tidyverse)
+library(ggplot2)
+library(ggflags)
+library(countrycode)
+```
+
+##  Case study: US Gun Murders
+
+Imagine you are trying to use a data-driven approach to deciding your opinion on gun regulations. In the process you notice the following trends:
+
+```{r murder-rate-example-1, echo=FALSE, warning=FALSE, message=FALSE, out.width="60%"}
+##from http://abcnews.go.com/images/International/homocides_g8_countries_640x360_wmain.jpg
+##knitr::include_graphics(file.path(img_path,"homocides_g8_countries_640x360_wmain.jpg"))
+
+dat <- tibble(country = toupper(c("US", "Italy", "Canada", "UK", "Japan", "Germany", "France", "Russia")),
+              count = c(3.2, 0.71, 0.5, 0.1, 0, 0.2, 0.1, 0),
+              label = c(as.character(c(3.2, 0.71, 0.5, 0.1, 0, 0.2, 0.1)), "No Data"),
+             code = c("us", "it", "ca", "gb", "jp", "de", "fr", "ru"))
+
+
+dat %>% 
+  mutate(country = reorder(country, -count)) %>%
+  ggplot(aes(country, count, label = label)) +
+  geom_bar(stat = "identity", fill = "darkred") +
+  geom_text(nudge_y = 0.2, color = "darkred", size = 5) +
+  geom_flag(y = -.5, aes(country = code), size = 12) +
+  scale_y_continuous(breaks = c(0, 1, 2, 3, 4), limits = c(0,4)) +
+  geom_text(aes(6.25, 3.8, label="Source UNODC Homicide Statistics")) + 
+  ggtitle(toupper("Homicide Per 100,000 in G-8 Countries")) + 
+  xlab("") + 
+  ylab("# of gun-related homicides\nper 100,000 people") +
+  ggthemes::theme_economist() +
+  theme(axis.text.x = element_text(size = 8, vjust = -12),
+        axis.ticks.x=element_blank(),
+        axis.line.x = element_blank(),
+        plot.margin = unit(c(1,1,1,1), "cm")) 
+```
+
+<!--(Source:
+[Ma’ayan Rosenzweigh/ABC News](https://abcnews.go.com/blogs/headlines/2012/12/us-gun-ownership-homicide-rate-higher-than-other-developed-countries/), Data from UNODC Homicide Statistics) -->
+
+
+##  Case study: US Gun Murders
+
+Or even worse, this version from [everytown.org](https://everytownresearch.org):
+```{r murder-rate-example-2, echo=FALSE, out.width="80%"}
+# from https://everytownresearch.org/wp-content/uploads/2016/07/GunTrends_murders_per_1000.png
+# knitr::include_graphics(file.path(img_path,"GunTrends_murders_per_1000.png"))
+
+dat <- tibble(country = toupper(c("United States", "Canada", "Portugal", "Ireland", "Italy", "Belgium", "Finland", "France", "Netherlands", "Denmark", "Sweden", "Slovakia", "Austria", "New Zealand", "Australia", "Spain", "Czech Republic", "Hungary", "Germany", "United Kingdom", "Norway", "Japan", "Republic of Korea")),
+              count = c(3.61, 0.5, 0.48, 0.35, 0.35, 0.33, 0.26, 0.20, 0.20, 0.20, 0.19, 0.19, 0.18, 0.16, 0.16, 0.15, 0.12, 0.10, 0.06, 0.04, 0.04, 0.01, 0.01))
+
+dat %>% 
+  mutate(country = reorder(country, count)) %>%
+  ggplot(aes(country, count, label = count)) +   
+  geom_bar(stat = "identity", fill = "darkred", width = 0.5) +
+  geom_text(nudge_y = 0.2,  size = 3) +
+  xlab("") + ylab("") + 
+  ggtitle(toupper("Gun Homicides per 100,000 residents")) + 
+  theme_minimal() +
+  theme(panel.grid.major =element_blank(), panel.grid.minor = element_blank(), 
+        axis.text.x = element_blank(),
+        axis.ticks.length = unit(-0.4, "cm")) + 
+  coord_flip() 
+```
+
+<!--(Source  [everytown.org](https://everytownresearch.org))-->
+
+##  Case study: US Gun Murders
+
+But then you remember that the US is a large and diverse country with 50 very different states:
+ 
+```{r us-murders-by-state-map, message=FALSE, warnings=F, echo=FALSE, out.width="60%"}
+library(tidyverse)
+library(dslabs)
+
+fifty_states <- map_data("state")
+data(murders) 
+murders %>% mutate(murder_rate = total/population*10^5,
+                  state = tolower(state), 
+                  colors= factor(ceiling(pmin(murder_rate, 9)))) %>%
+  ggplot(aes(map_id = state)) + 
+  geom_map(aes(fill = colors), color = "black", map = fifty_states) + 
+  expand_limits(x = fifty_states$long, y = fifty_states$lat) +
+  coord_map() +
+  scale_x_continuous(breaks = NULL) + 
+  scale_y_continuous(breaks = NULL) +
+  labs(x = "", y = "") +
+  theme(panel.background = element_blank()) + 
+  scale_fill_brewer(guide="none")+
+  theme_minimal()
+rm(fifty_states)
+```
+
+##  Case study: US Gun Murders
+
+California, for example, has a larger population than Canada, and 20 US states have populations larger than that of Norway. 
+
+Furthermore, the murder rates in Lithuania, Ukraine, and Russia (not included) are higher than 4 per 100,000. So how does this factor into your decision making process?
+
+We will gain some insights by examining data related to gun homicides in the US during 2010 using R. 
+
+##  The very basics of R
+
+But before we get started with our example, lets cover some very basic building blocks for R programming.
+
+## Objects
+
+Suppose we wanted to solve quadratic equations of the form $ax^2+bx+c = 0$. The quadratic formula gives us the solutions:
+
+$$
+\frac{-b - \sqrt{b^2 - 4ac}}{2a}\,\, \mbox{ and } \frac{-b + \sqrt{b^2 - 4ac}}{2a}
+$$
+which depends on the values of $a$, $b$, and $c$. A programming language can be use to define variables and write expressions with these variables, similar to how we do so in math, but obtain a numeric solution. 
+
+## Objects
+We will write out general code for the quadratic equation below, but if we are asked to solve $x^2 + x -1 = 0$, then we define:
+
+```{r}
+a <- 1
+b <- 1
+c <- -1
+```
+
+which stores the values for later use. We use `<-` to assign values to the variables. We can also assign values using `=` instead of `<-`, but we recommend against using `=` to avoid confusion.
+
+## Objects
+To see the value stored in a variable, we simply ask R to evaluate `a` and it shows the stored value:
+
+```{r}
+a
+```
+
+A more explicit way to ask R to show us the value stored in `a` is using `print` like this:
+
+```{r}
+print(a)
+```
+
+## Objects
+We use the term __object__ to describe stuff that is stored in R. Variables are examples, but objects can also be more complicated entities such as functions, which are described later.
+
+
+## The Workspace
+
+As we define objects in the console, we are changing the __workspace__. You can see all the variables saved in your workspace by typing:
+\scriptsize
+```{r}
+ls()
+```
+
+## The workspace
+In RStudio, the __Environment__ tab shows the values:
+\center
+![](rFigs/rstudio-environment.png){width="70%"}
+
+## The Workspace
+We should see  `a`, `b`, and `c`. If you try to recover the value of a variable that is not in your workspace, you receive an error. For example, if you type `x` you will receive the following message: `Error: object 'x' not found`.
+
+## The workspace
+Now since these values are saved in variables, to obtain a solution to our equation, we use the quadratic formula:  
+
+```{r}
+(-b + sqrt(b^2 - 4*a*c) ) / ( 2*a )
+(-b - sqrt(b^2 - 4*a*c) ) / ( 2*a )
+```
+
+
+## Functions 
+
+Once you define variables, the data analysis process can usually be described as a series of __functions__ applied to the data. R includes several predefined functions and most of the analysis pipelines we construct make extensive use of these. 
+
+## Functions 
+We already used the `install.packages`, `library`, and `ls` functions. We also used the function `sqrt` to solve the quadratic equation above.
+
+\vskip .1in
+There are many more prebuilt functions and even more can be added through packages. These functions do not appear in the workspace because you did not define them, but they are available for immediate use.
+
+## Functions 
+In general, we need to use parentheses to evaluate a function. If you type `ls`, the function is not evaluated and instead R shows you the code that defines the function. If you type `ls()` the function is evaluated and, as seen above, we see objects in the workspace.
+
+## Functions 
+Unlike `ls`, most functions require one or more __arguments__. Below is an example of how we assign an object to the argument of the function `log`. Remember that we earlier defined `a` to be 1:
+
+```{r}
+log(8)
+log(a) 
+```
+
+## Functions 
+You can find out what the function expects and what it does by reviewing the very useful manuals included in R. You can get help by using the `help` function like this:
+
+```{r, eval=FALSE}
+help("log")
+```
+
+For most functions, we can also use this shorthand:
+
+```{r, eval=FALSE}
+?log
+```
+
+## Functions 
+The help page will show you what arguments the function is expecting. For example, `log` needs `x` and `base` to run. 
+
+However, some arguments are required and others are optional. You can determine which arguments are optional by noting in the help document that a default value is assigned with `=`. For example, the base of the function `log` defaults to `base = exp(1)` making `log` the natural log by default. 
+
+## Functions 
+If you want a quick look at the arguments without opening the help system, you can type:
+
+```{r}
+args(log)
+```
+
+## Functions 
+You can change the default values by simply assigning another object:
+
+```{r}
+log(8, base = 2)
+```
+
+Note that we have not been specifying the argument `x` as such:
+```{r}
+log(x = 8, base = 2)
+```
+
+## Functions 
+The above code works, but we can save ourselves some typing the following:
+
+```{r}
+log(8,2)
+```
+
+ R assumes you are entering arguments in the order shown in the help file or by `args`. So by not using the names, it assumes the arguments are `x` followed by `base`.
+
+## Functions 
+If using the arguments' names, then we can include them in whatever order we want:
+
+```{r}
+log(base = 2, x = 8)
+```
+
+To specify arguments, we must use `=`, and cannot use `<-`.
+
+## Functions 
+There are some exceptions to the parentheses rule functions. Among these, the most commonly used are the arithmetic and relational operators. For example:
+
+```{r}
+2 ^ 3
+```
+
+## Functions 
+You can see the arithmetic operators by typing:
+
+```{r, eval = TRUE}
+help("+") 
+```
+
+or 
+
+```{r, eval = TRUE}
+?"+"
+```
+
+and the relational operators by typing: 
+
+```{r, eval = TRUE}
+help(">") 
+```
+
+or 
+
+```{r}
+?">"
+```
+
+## Other Prebuilt Objects
+
+There are several datasets that are included for users to practice and test out functions. You can see all the available datasets by typing:
+
+```{r}
+data()
+```
+
+This shows you the object name for these datasets. These datasets are objects that can be used by simply typing the name. For example, if you type:
+
+```{r, eval=FALSE}
+co2
+```
+R will show you Mauna Loa atmospheric CO2 concentration data that is prebuilt into R.
+
+## Other Prebuilt Objects
+Other prebuilt objects are mathematical quantities, such as the constant $\pi$ and $\infty$:
+ 
+```{r}
+pi
+Inf+1
+```
+
+## Variable Names
+
+We have used the letters `a`, `b`, and `c` as variable names, but variable names can be almost anything. Some basic rules in R for variable names: 
+
+1. They have to start with a letter
+2. They can't contain spaces
+3. They should not be variables predefined in R. 
+
+For example, for the third point, don't name one of your variables:
+```{r, eval=F}
+install.packages <- 2
+```
+which will overwrite the `install.packages` function in your workspace and you can no longer use it. 
+
+## Variable Names
+A nice convention to follow:
+
+1. Use meaningful words that describe what is stored
+2. Use only lower case
+3. Use underscores as a substitute for spaces
+
+For the quadratic equations, we could use something like this:
+
+```{r}
+solution_1 <- (-b + sqrt(b^2 - 4*a*c)) / (2*a)
+solution_2 <- (-b - sqrt(b^2 - 4*a*c)) / (2*a)
+```
+
+For more advice, we highly recommend studying Hadley Wickham's style guide^[http://adv-r.had.co.nz/Style.html].
+
+## Saving your workspace
+
+Values remain in the workspace until you end your session or erase them with the function `rm`, but whole workspaces can also can be saved. 
+
+In fact, when you quit R, the program asks you if you want to save your workspace. If you do save it, the next time you start R, the program will restore the workspace. 
+
+## Saving your workspace
+In most cases, you should avoid automatically saving the workspace. As you start working on different projects, it will become harder to keep track of what is saved. Instead, we recommend you assign the workspace a specific name. 
+
+You can save your workspace using `save` or `save.image`, and reload it using `load`. We recommend the suffix `rda` or `RData`. 
+
+In RStudio, you can also do this by navigating to the __Session__ tab and choosing __Save Workspace as__. You can later load it using the __Load Workspace__ options in the same tab.
+
+## Motivating Scripts
+
+To solve another equation such as $3x^2 + 2x -1$, we can copy and paste the code above and then redefine the variables and recompute the solution:
+
+```{r, eval=FALSE}
+a <- 3
+b <- 2
+c <- -1
+(-b + sqrt(b^2 - 4*a*c)) / (2*a)
+(-b - sqrt(b^2 - 4*a*c)) / (2*a)
+```
+
+## Motivating Scripts
+By creating and saving a script with the code above, we would not need to retype everything each time and, instead, simply change the variable names. Try writing the script above into an editor and notice how easy it is to change the variables and receive an answer.
+
+## Commenting your code 
+
+If a line of R code starts with the symbol `#`, it is not evaluated. We can use this to write reminders of why we wrote particular code. For example, in the script above we could add:
+
+
+```{r, eval=FALSE}
+## Code to compute solution to quadratic equation of 
+## the form ax^2 + bx + c 
+## First define the variables
+a <- 3 
+b <- 2
+c <- -1
+
+## Now compute the solution
+(-b + sqrt(b^2 - 4*a*c)) / (2*a)
+(-b - sqrt(b^2 - 4*a*c)) / (2*a)
+```
+
+
+## Data Types
+
+Variables in R can be of different types. For example: numbers, character strings, tables simple lists. The function `class` helps us determine what type of object we have:
+
+```{r}
+a <- 2
+class(a)
+```
+
+To work efficiently in R, it is important to learn the different types of variables and what we can do with these.
+
+## Data Frames 
+
+Up to now, the variables we have defined are just one number, which is not very useful for storing data. The most common way of storing a dataset in R is in a __data frame__. 
+
+Conceptually, we can think of a data frame as a table with rows representing observations and the different variables reported for each observation defining the columns. 
+
+Data frames are particularly useful for datasets because we can combine different data types into one object. 
+
+## Data Frames 
+A large proportion of data analysis use data stored in a data frame. 
+
+For example, we stored the data for our motivating example in a data frame. You can access this dataset by loading the __dslabs__ library and loading the `murders` dataset using the `data` function:
+
+```{r}
+library(dslabs)
+data(murders)
+```
+
+## Data Frames 
+To see that this is in fact a data frame, we type:
+
+```{r}
+class(murders)
+```
+
+## Examining an Object
+
+The function `str` is useful for finding out more about the structure of an object:
+
+```{r, echo=FALSE}
+# change str to make sure it stays within margins
+str <- function(x) utils::str(x, strict.width = 'wrap')
+```
+
+```{r}
+str(murders)
+```
+
+```{r, echo=FALSE}
+# remove str we defiend
+rm(str)
+```
+
+This tells us much more about the object. We see that the table has 51 rows (50 states plus DC) and five variables. 
+
+## Data Frames 
+We can show the first six lines using the function `head`:
+
+```{r}
+head(murders)
+```
+
+## Data Frames 
+In this dataset, each state is considered an observation and five variables are reported for each state.
+
+Before we go any further in answering our original question about different states, let's learn more about the components of this object.
+
+## The Accessor: `$`
+
+For our analysis, we will need to access the different variables represented by columns included in this data frame. To do this, we use the accessor operator `$` in the following way:
+\footnotesize
+```{r}
+murders$population
+```
+
+## The Accessor: `$`
+But how did we know to use `population`? Previously, by applying the function `str` to the object `murders`, we revealed the names for each of the five variables stored in this table. We can quickly access the variable names using:
+
+\footnotesize
+```{r}
+names(murders)
+```
+
+## The Accessor: `$`
+**Important:** Note the order of the entries in `murders$population` preserves the order of the rows in our data table. This will later permit us to manipulate one variable based on the results of another. For example, we will be able to order the state names by the number of murders.
+
+**Pro Tip**: R comes with a very nice auto-complete functionality that saves us the trouble of typing out all the names. Try typing `murders$p` then hitting the __tab__ key on your keyboard. This functionality and many other useful auto-complete features are available when working in RStudio.
+
+## Vectors: Numerics, Characters, and Logical
+
+The object `murders$population` is not one number but several. We call these types of objects __vectors__. A single number is technically a vector of length 1, but in general we use the term vectors to refer to objects with several entries. The function `length` tells you how many entries are in the vector:
+
+```{r}
+pop <- murders$population
+length(pop)
+```
+
+## Vectors: Numerics, Characters, and Logical
+This particular vector is __numeric__ since population sizes are numbers:
+
+```{r}
+class(pop)
+```
+In a numeric vector, every entry must be a number. 
+
+## Vectors: Numerics, Characters, and Logical
+To store character strings, vectors can also be of class __character__. For example, the state names are characters:
+
+```{r}
+class(murders$state)
+```
+
+As with numeric vectors, all entries in a character vector need to be a character.
+
+## Vectors: Numerics, Characters, and Logical
+Another important type of vectors are __logical vectors__. These must be either `TRUE` or `FALSE`. 
+
+```{r}
+z <- 3 == 2
+z
+class(z)
+```
+
+Here the `==` is a relational operator asking if 3 is equal to 2. In R, if you just use one `=`, you actually assign a variable, but if you use two `==` you test for equality. 
+
+## Vectors: Numerics, Characters, and Logical
+You can see the other __relational operators__ by typing:
+
+```{r, eval=FALSE}
+?Comparison
+```
+
+In the future, you will see how useful relational operators can be. We discuss more important features of vectors later.
+
+
+## Vectors: Numerics, Characters, and Logical
+**Advanced**: Mathematically, the values in `pop` are integers and there is an integer class in R. However, by default, numbers are assigned class numeric even when they are round integers. For example, `class(1)` returns numeric. You can turn them into class integer with the `as.integer()` function or by adding an `L` like this: `1L`. Note the class by typing: `class(1L)`
+
+
+## Factors 
+
+In the `murders` dataset, we might expect the region to also be a character vector. However, it is not:
+
+```{r}
+class(murders$region)
+```
+
+It is a __factor__. Factors are useful for storing categorical data. 
+
+
+## Factors 
+We can see that there 4 regions by using the `levels` function:
+
+\footnotesize
+```{r}
+levels(murders$region)
+```
+
+## Factors 
+In the background, R stores these __levels__ as integers and keeps a map to keep track of the labels. This is more memory efficient than storing all the characters. 
+
+Note that the levels have an order that is different from the order of appearance in the factor object. The default in R is for the levels to follow alphabetical order. However, often we want the levels to follow a different order. 
+
+You can specify an order through the `levels` argument when creating the factor with the `factor` function. For example, in the murders dataset regions are ordered from east to west.  The function `reorder` lets us change the order of the levels of a factor variable based on a summary computed on a numeric vector. 
+
+## Factors 
+
+Suppose we want the levels of the region by the total number of murders rather than alphabetical order. If there are values associated with each level, we can use the `reorder` and specify a data summary to determine the order. The following code takes the sum of the total murders in each region, and reorders the factor following these sums.
+
+\footnotesize
+
+```{r}
+region <- murders$region
+value <- murders$total
+region <- reorder(region, value, FUN = sum)
+levels(region)
+```
+
+## Factors 
+The new order is in agreement with the fact that the Northeast has the least murders and the South has the most.
+
+**Warning**: Factors can be a source of confusion since sometimes they behave like characters and sometimes they do not. As a result, confusing factors and characters are a common source of bugs.  
+
+## Lists
+
+Data frames are a special case of __lists__. Lists are useful because you can store any combination of different types. You can create a list using the `list` function like this:
+
+```{r}
+record <- list(name = "John Doe",
+             student_id = 1234,
+             grades = c(95, 82, 91, 97, 93),
+             final_grade = "A")
+```
+
+The function `c` (for concatenate) is described later.
+
+## Lists
+The list on the prior slide includes a character, a number, a vector with five numbers, and another character.
+\scriptsize
+```{r}
+class(record)
+record
+```
+
+## Lists
+
+As with data frames, you can extract the components of a list with the accessor `$`. 
+
+```{r}
+record$student_id
+```
+
+## Lists
+We can also use double square brackets (`[[`) like this:
+
+```{r}
+record[["student_id"]]
+```
+
+You should get used to the fact that in R, there are often several ways to do the same thing, such as accessing entries.
+
+## Lists
+You might also encounter lists without variable names.
+
+```{r,}
+record2 <- list("John Doe", 1234)
+record2
+```
+
+## Lists
+If a list does not have names, you cannot extract the elements with `$`, but you can still use the brackets method and instead of providing the variable name, you provide the list index, like this:
+
+```{r}
+record2[[1]]
+```
+
+We won't be using lists until later, but you might encounter one in your own exploration of R. For this reason, we showed you some basics here. 
+
+
+## Matrices 
+
+__Matrices__ are another type of object that are common in R. Matrices are similar to data frames in that they are two-dimensional: they have rows and columns. However, like numeric, character and logical vectors, entries in matrices have to be all the same type. 
+For this reason data frames are much more useful for storing data, since we can have characters, factors, and numbers in them. 
+
+## Matrices 
+Yet matrices have a major advantage over data frames: we can perform matrix algebra operations, a powerful type of mathematical technique. We will cover matematical computions on matrices in more detail later!
+
+## Matrices 
+We can define a matrix using the `matrix` function. We need to specify the number of rows and columns.
+
+```{r}
+mat <- matrix(1:12, 4, 3)
+mat
+```
+
+## Matrices 
+You can access specific entries in a matrix using square brackets (`[`). If you want the second row, third column, you use:
+
+```{r}
+mat[2, 3]
+```
+
+## Matrices 
+If you want the entire second row, you leave the column spot empty:
+
+```{r}
+mat[2, ]
+```
+
+Notice that this returns a vector, not a matrix.
+
+## Matrices 
+Similarly, if you want the entire third column, you leave the row spot empty:
+
+```{r}
+mat[, 3]
+```
+
+This is also a vector, not a matrix.
+
+## Matrices 
+You can access more than one column or more than one row if you like. This will give you a new matrix.
+
+```{r}
+mat[, 2:3]
+```
+
+## Matrices 
+You can subset both rows and columns:
+
+```{r}
+mat[1:2, 2:3]
+```
+
+## Matrices 
+We can convert matrices into data frames using the function `as.data.frame`:
+
+```{r}
+as.data.frame(mat)
+```
+
+## Matrices 
+You can also use single square brackets (`[`) to access rows and columns of a data frame:
+
+```{r}
+data("murders")
+murders[25, 1]
+murders[2:3, ]
+```
+
+
+## Exercises 
+Now open the **R Basics Exercises** file and complete Exercises 6-11.  
+<!--
+1\. Load the US murders dataset.
+
+```{r}
+library(dslabs)
+data(murders)
+```
+
+Use the function `str` to examine the structure of the `murders` object. Which of the following best describes the variables represented in this data frame?
+    
+a. The 51 states.
+b. The murder rates for all 50 states and DC.
+c. The state name, the abbreviation of the state name, the state's region, and the state's population and total number of murders for 2010. 
+d. `str` shows no relevant information.
+    
+2\. What are the column names used by the data frame for these five variables?
+    
+3\. Use the accessor `$` to extract the state abbreviations and assign them to the object `a`. What is the class of this object?
+
+4\. Now use the square brackets to extract the state abbreviations and assign them to the object `b`. Use the `identical` function to determine if `a` and `b` are the same.
+
+5\. We saw that the `region` column stores a factor. You can corroborate this by typing: 
+
+```{r, eval=FALSE}
+class(murders$region)
+```
+
+With one line of code, use the function `levels` and `length` to determine the number of regions defined by this dataset.
+
+6\. The function `table` takes a vector and returns the frequency of each element. You can quickly see how many states are in each region by applying this function. Use this function in one line of code to create a table of states per region.
+--> 
+
+##  Vectors 
+
+In R, the most basic objects available to store data are __vectors__. As we have seen, complex datasets can usually be broken down into components that are vectors. For example, in a data frame, each column is a vector. Here we learn more about this important class.
+
+## Creating Vectors
+
+We can create vectors using the function `c`, which stands for __concatenate__. We use `c` to concatenate entries in the following way:
+
+```{r}
+codes <- c(380, 124, 818)
+codes
+```
+
+## Creating Vectors
+We can also create character vectors. We use the quotes to denote that the entries are characters rather than variable names.
+
+```{r}
+country <- c("italy", "canada", "egypt")
+```
+
+## Creating Vectors
+In R you can also use single quotes:
+
+```{r}
+country <- c('italy', 'canada', 'egypt')
+```
+
+But be careful not to confuse the single quote ' with the __back quote__ `. 
+
+## Creating Vectors
+By now you should know that if you type:
+
+```{r, eval=FALSE}
+country <- c(italy, canada, egypt)
+```
+you receive an error because the variables `'italy'`, `'canada'`, and `'egypt'` are not defined. If we do not use the quotes, R looks for variables with those names and returns an error.
+
+## Names
+
+Sometimes it is useful to name the entries of a vector. For example, when defining a vector of country codes, we can use the names to connect the two:
+
+```{r}
+codes <- c(italy = 380, canada = 124, egypt = 818)
+codes
+```
+
+## Names
+The object `codes` continues to be a numeric vector:
+```{r}
+class(codes)
+```
+but with names:
+```{r}
+names(codes)
+```
+
+## Names
+If the use of strings without quotes looks confusing, know that you can use the quotes as well:
+
+```{r}
+codes <- c("italy" = 380, "canada" = 124, "egypt" = 818)
+codes
+```
+
+There is no difference between this function call and the previous one. This is one of the many ways in which R is quirky compared to other languages.
+
+## Names
+We can also assign names using the `names` functions:
+
+```{r}
+codes <- c(380, 124, 818)
+country <- c("italy","canada","egypt")
+names(codes) <- country
+codes
+```
+
+## Sequences
+
+Another useful function for creating vectors generates sequences:
+
+```{r}
+seq(1, 10)
+```
+
+## Sequences
+The first argument defines the start, and the second defines the end which is included. The default is to go up in increments of 1, but a third argument lets us tell it how much to jump by:
+
+```{r}
+seq(1, 10, 2)
+```
+
+## Sequences
+If we want consecutive integers, we can use the following shorthand:
+
+```{r}
+1:10
+```
+
+## Sequences
+When we use these functions, R produces integers, not numerics, because they are typically used to index something:
+
+```{r}
+class(1:10)
+```
+
+However, if we create a sequence including non-integers, the class changes:
+
+```{r}
+class(seq(1, 10, 0.5))
+```
+
+## Subsetting
+
+We use square brackets to access specific elements of a vector. For the vector `codes` we defined above, we can access the second element using:
+```{r}
+codes[2]
+```
+
+You can get more than one entry by using a multi-entry vector as an index:
+```{r}
+codes[c(1,3)]
+```
+
+## Subsetting
+The sequences defined above are particularly useful if we want to access, say, the first two elements:
+
+```{r}
+codes[1:2]
+```
+
+## Subsetting
+If the elements have names, we can also access the entries using these names. Below are two examples.
+
+```{r}
+codes["canada"]
+codes[c("egypt","italy")]
+```
+
+## Coercion
+
+In general, __coercion__ is an attempt by R to be flexible with data types. When an entry does not match the expected, some of the prebuilt R functions try to guess what was meant before throwing an error. This can also lead to confusion. 
+
+Failing to understand __coercion__ can drive programmers crazy in R since it behaves quite differently from most other languages in this regard. Let's learn about it with some examples.
+
+## Coercion
+We said that vectors must be all of the same type. So if we try to combine, say, numbers and characters, you might expect an error:
+
+```{r}
+x <- c(1, "canada", 3)
+```
+
+But we don't get one, not even a warning! What happened? Look at `x` and its class:
+
+```{r}
+x
+class(x)
+```
+
+## Coercion
+R __coerced__ the data into characters. It guessed that because you put a character string in the vector, you meant the 1 and 3 to actually be character strings `"1"` and "`3`". The fact that not even a warning is issued is an example of how coercion can cause many unnoticed errors in R. 
+
+R also offers functions to change from one type to another. For example, you can turn numbers into characters with:
+
+```{r}
+x <- 1:5
+y <- as.character(x)
+y
+```
+
+## Coercion
+You can turn it back with `as.numeric`:
+
+```{r}
+as.numeric(y)
+```
+ 
+This function is actually quite useful since datasets that include numbers as character strings are common. 
+
+## Not Availables (NA)
+
+When a function tries to coerce one type to another and encounters an impossible case, it usually gives us a warning and turns the entry into a special value called an `NA` for "not available".  For example:
+
+```{r}
+x <- c("1", "b", "3")
+as.numeric(x)
+```
+
+R does not have any guesses for what number you want when you type `b`, so it does not try. As a data scientist you will encounter the `NA`s often as they are generally used for missing data, a common problem in real-world datasets.
+
+## Sorting
+
+Now that we have mastered some basic R knowledge, let's try to gain some insights into the safety of different states in the context of gun murders. 
+
+Say we want to rank the states from least to most gun murders. The function `sort` sorts a vector in increasing order. We can therefore see the largest number of gun murders by typing:
+\scriptsize
+```{r}
+library(dslabs)
+data(murders)
+sort(murders$total)
+```
+
+\normalsize
+However, this does not give us information about which states have which murder totals. For example, we don't know which state had `r max(murders$total)` murders.
+
+## Sorting
+
+The function `order` is closer to what we want. It takes a vector as input and returns the vector of indexes that sorts the input vector. This may sound confusing so let's look at a simple example. We can create a vector and sort it:
+
+```{r}
+x <- c(31, 4, 15, 92, 65)
+sort(x)
+```
+
+Rather than sort the input vector, the function `order` returns the index that sorts input vector:
+
+```{r}
+index <- order(x)
+x[index]
+```
+
+## Sorting
+
+This is the same output as that returned by `sort(x)`. If we look at this index, we see why it works:
+```{r}
+x
+order(x)
+```
+
+The second entry of `x` is the smallest, so `order(x)` starts with `2`. The next smallest is the third entry, so the second entry is `3`, etc. 
+
+## Sorting
+How does this help us order the states by murders? First, remember that the entries of vectors you access with `$` follow the same order as the rows in the table. For example, these two vectors containing state names and abbreviations are matched by their order:
+
+```{r}
+murders$state[1:6]
+murders$abb[1:6]
+```
+
+## Sorting
+This means we can order the state names by their total murders. We first obtain the index that orders the vectors according to murder totals and then index the state names vector:
+\scriptsize
+```{r}
+ind <- order(murders$total) 
+murders$abb[ind] 
+```
+\normalsize
+According to the above, California had the most murders.
+
+## Sorting
+If we are only interested in the entry with the largest value, we can use `max` for the value:
+
+```{r}
+max(murders$total)
+```
+
+and `which.max` for the index of the largest value:
+
+```{r}
+i_max <- which.max(murders$total)
+murders$state[i_max]
+```
+
+For the minimum, we can use `min` and `which.min` in the same way.
+
+## Sorting
+Does this mean California is the most dangerous state? In an upcoming section, we argue that we should be considering rates instead of totals. Before doing that, we introduce one last order-related function: `rank`.
+
+Although not as frequently used as `order` and `sort`, the function `rank` is also related to order and can be useful.
+For any given vector it returns a vector with the rank of the first entry, second entry, etc., of the input vector. Here is a simple example:
+
+```{r}
+x <- c(31, 4, 15, 92, 65)
+rank(x)
+```
+
+## Sorting
+To summarize, let's look at the results of the three functions we have introduced:
+
+```{r, echo=FALSE}
+tmp <- data.frame(original=x, sort=sort(x), order=order(x), rank=rank(x))
+if(knitr::is_html_output()){
+  knitr::kable(tmp, "html") %>%
+    kableExtra::kable_styling(bootstrap_options = "striped", full_width = FALSE)
+} else{
+  knitr::kable(tmp, "latex", booktabs = TRUE) %>%
+    kableExtra::kable_styling(font_size = 8)
+}
+```
+
+
+## Beware of recycling
+
+Another common source of unnoticed errors in R is the use of __recycling__. We saw that vectors are added elementwise. So if the vectors don't match in length, it is natural to assume that we should get an error. But we don't. Notice what happens:
+
+\scriptsize
+```{r, warning=TRUE}
+x <- c(1, 2, 3)
+y <- c(10, 20, 30, 40, 50, 60, 70)
+x+y
+```
+\normalsize
+We do get a warning, but no error. For the output, R has recycled the numbers in `x`. Notice the last digit of numbers in the output. 
+ 
+
+## Vector Arithmetic
+
+California had the most murders, but does this mean it is the most dangerous state? What if it just has many more people than any other state? We can quickly confirm that California indeed has the largest population:
+
+```{r}
+library(dslabs)
+data("murders")
+murders$state[which.max(murders$population)]
+```
+
+with over `r floor(max(murders$population)/10^6)` million inhabitants. It is therefore unfair to compare the totals if we are interested in learning how safe the state is. 
+
+## Rescaling a Vector
+What we really should be computing is the murders per capita. The reports we describe in the motivating section used murders per 100,000 as the unit. 
+
+To compute this quantity, the powerful vector arithmetic capabilities of R come in handy.
+
+## Rescaling a Vector
+In R, arithmetic operations on vectors occur __element-wise__. For a quick example, suppose we have height in inches:
+
+```{r}
+inches <- c(69, 62, 66, 70, 70, 73, 67, 73, 67, 70)
+```
+and want to convert to centimeters. Notice what happens when we multiply `inches` by 2.54:
+
+```{r}
+inches * 2.54
+```
+ 
+## Rescaling a Vector
+
+In the previous slide, we multiplied each element by 2.54.  Similarly, if for each entry we want to compute how many inches taller or shorter than 69 inches, the average height for males, we can subtract it from every entry like this:
+
+```{r}
+inches - 69
+```
+
+
+## Two vectors
+
+If we have two vectors of the same length, and we sum them in R, they will be added entry by entry as follows:
+
+$$
+\begin{pmatrix}
+a\\
+b\\
+c\\
+d
+\end{pmatrix}
++
+\begin{pmatrix}
+e\\
+f\\
+g\\
+h
+\end{pmatrix}
+=
+\begin{pmatrix}
+a +e\\
+b + f\\
+c + g\\
+d + h
+\end{pmatrix}
+$$
+
+## Two vectors
+The same holds for other operations, such as `-`, `*` and `/`.
+
+This implies that to compute the murder rates we can simply type:
+\footnotesize
+```{r}
+murder_rate <- murders$total / murders$population * 100000
+```
+
+## Two vectors
+Once we do this, we notice that California is no longer near the top of the list. In fact, we can use what we have learned to order the states by murder rate:
+
+\scriptsize
+```{r}
+murders$abb[order(murder_rate)]
+```
+
+
+
+## Indexing
+
+R provides a powerful and convenient way of indexing vectors. We can, for example, subset a vector based on properties of another vector. Imagine you are moving from Italy where, according to an ABC news report, the murder rate is only 0.71 per 100,000. 
+
+You would prefer to move to a state with a similar murder rate. Another powerful feature of R is that we can use logicals to index vectors. If we compare a vector to a single number, it actually performs the test for each entry. The following is an example related to the question above:
+
+```{r}
+ind <- murder_rate < 0.71
+```
+
+## Indexing
+If we instead want to know if a value is less or equal, we can use:
+
+```{r}
+ind <- murder_rate <= 0.71
+```
+
+Note that we get back a logical vector with `TRUE` for each entry smaller than or equal to 0.71. To see which states these are, we can leverage the fact that vectors can be indexed with logicals.
+
+\scriptsize
+```{r}
+murders$state[ind]
+```
+
+## Indexing
+In order to count how many are TRUE, the function `sum` returns the sum of the entries of a vector and logical vectors get _coerced_ to numeric with `TRUE` coded as 1 and `FALSE` as 0. Thus we can count the states using:
+
+```{r}
+sum(ind)
+```
+
+
+## Logical operators
+
+Suppose we like the mountains and we want to move to a safe state in the western region of the country. We want the murder rate to be at most 1. In this case, we want two different things to be true. Here we can use the logical operator _and_, which in R is represented with `&`. This operation results in `TRUE` only when both logicals are `TRUE`. To see this, consider this example:
+
+```{r}
+TRUE & TRUE
+TRUE & FALSE
+FALSE & FALSE
+```
+
+## Logical operators
+For our example, we can form two logicals:
+
+```{r}
+west <- murders$region == "West"
+safe <- murder_rate <= 1
+```
+
+and we can use the `&`  to get a vector of logicals that tells us which states satisfy both conditions:
+
+```{r}
+ind <- safe & west
+murders$state[ind]
+```
+
+## Logical operators: `which`
+
+Suppose we want to look up California's murder rate. For this type of operation, it is convenient to convert vectors of logicals into indexes instead of keeping long vectors of logicals. The function `which` tells us which entries of a logical vector are TRUE. So we can type:
+
+```{r}
+ind <- which(murders$state == "California")
+murder_rate[ind]
+```
+
+
+## Logical operators: `match`
+
+If instead of just one state we want to find out the murder rates for several states, say New York, Florida, and Texas, we can use the function `match`. This function tells us which indexes of a second vector match each of the entries of a first vector:
+\footnotesize
+```{r}
+ind <- match(c("New York", "Florida", "Texas"), murders$state)
+ind
+```
+\normalsize
+Now we can look at the murder rates:
+
+```{r}
+murder_rate[ind]
+```
+
+## Logical operators: `%in%`
+
+
+If rather than an index we want a logical that tells us whether or not each element of a first vector is in a second, we can use the function `%in%`. Let's imagine you are not sure if Boston, Dakota, and Washington are states. You can find out like this:
+
+```{r}
+c("Boston", "Dakota", "Washington") %in% murders$state
+```
+
+Note that we will be using `%in%` often throughout this tutorial.
+
+## Logical operators: `%in%`
+
+**Advanced**: There is a connection between `match` and `%in%` through `which`. To see this, notice that the following two lines produce the same index (although in different order): 
+
+```{r}
+match(c("New York", "Florida", "Texas"), murders$state)
+which(murders$state%in%c("New York", "Florida", "Texas"))
+```
+
+
+## Basic Plots
+
+Later we will present add-on package named `ggplot2` that provides a powerful approach to producing plots in R. We then have an entire part on Data Visualization in which we provide many examples. Here we briefly describe some of the functions that are available in a basic R installation.
+
+## Basic Plots: `plot`
+
+The `plot` function can be used to make scatterplots. Here is a plot of total murders versus population.
+
+```{r eval=FALSE}
+x <- murders$population / 10^6
+y <- murders$total
+plot(x, y)
+```
+
+```{r first-plot, out.width="40%", echo=FALSE}
+x <- murders$population / 10^6
+y <- murders$total
+plot(x, y)
+```
+
+## Basic Plots: `plot`
+For a quick plot that avoids accessing variables twice, we can use the `with` function:
+
+```{r, eval=FALSE}
+with(murders, plot(population, total))
+```
+
+The function `with` lets us use the `murders` column names in the `plot` function. It also works with any data frames and any function.
+
+## Basic Plots: `hist`
+
+We will describe histograms as they relate to distributions in the Data Visualization section later. We can make a histogram of our murder rates by simply typing:
+
+```{r eval=FALSE}
+x <- with(murders, total / population * 100000)
+hist(x)
+```
+
+```{r r-base-hist, out.width="40%",echo=FALSE}
+x <- with(murders, total / population * 100000)
+hist(x)
+```
+
+## Basic Plots: `hist`
+We can see that there is a wide range of values with most of them between 2 and 3 and one very extreme case with a murder rate of more than 15:
+
+```{r}
+murders$state[which.max(x)]
+```
+
+## Basic Plots: `boxplot`
+
+Boxplots will also be described in the Data Visualization part of the tutorial.  They provide a more terse summary than histograms, but they are easier to stack with other boxplots. For example, here we can use them to compare the different regions:
+\footnotesize
+```{r eval=FALSE}
+murders$rate <- with(murders, total / population * 100000)
+boxplot(rate~region, data = murders)
+```
+
+```{r r-base-boxplot, out.width="50%", echo=FALSE}
+murders$rate <- with(murders, total / population * 100000)
+boxplot(rate~region, data = murders)
+```
+\normalsize
+
+The South has higher murder rates than the other three regions.
+
+## Basic Plots: `image`
+
+The image function displays the values in a matrix using color. Here is a quick example:
+
+```{r eval=FALSE}
+x <- matrix(1:120, 12, 10)
+image(x)
+```
+
+```{r image-first-example, fig.height=4, fig.width=4, echo=FALSE, out.width="40%"}
+x <- matrix(1:120, 12, 10)
+image(x)
+```
+
+## Session Info
+\tiny
+```{r session}
+sessionInfo()
+```
