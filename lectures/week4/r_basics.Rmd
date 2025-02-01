@@ -1,5 +1,5 @@
 ---
-title: "Programming Basics"
+title: "R Basics"
 author: | 
   | W. Evan Johnson, Ph.D.
   | Professor, Division of Infectious Disease
