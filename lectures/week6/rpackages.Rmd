@@ -1,0 +1,171 @@
+---
+title: "Creating R Packages"
+author: | 
+  | W. Evan Johnson, Ph.D.
+  | Professor, Division of Infectious Disease
+  | Director, Center for Data Science
+  | Rutgers University -- New Jersey Medical School
+  | w.evan.johnson@rutgers.edu
+date: "`r Sys.Date()`"
+header-includes:
+  - \usepackage{amsmath}
+  - \usepackage{xcolor}
+  - \setbeamercolor{frametitle}{fg=black}
+  - \usepackage{graphicx}
+  - \usebackgroundtemplate{\includegraphics[width=\paperwidth]{shinyFigs/RH_template_Page_2.png}}
+  - \addtobeamertemplate{frametitle}{\vspace*{.25in}}{\vspace*{.25in}}
+  - \setbeamerfont{frametitle}{size=\huge}
+  - \usepackage{tikz}
+output: 
+  beamer_presentation
+classoption: aspectratio=169 
+editor_options: 
+  chunk_output_type: console
+tables: true
+---
+
+## Importance of developing software
+
+"As a modern statistician, one of the most fundamental contributions you can make is to create and distribute software that implements the methods you develop. I have gone so far as to say if you write a paper without software, that paper doesn't exist." (Jeff Leek)
+
+(Note: to give proper credit, I borrowed material shamelessly from Jeff Leek's R package [tutorial on GitHub](https://github.com/jtleek/rpackages) for these slides and code.)
+
+
+## Getting started
+
+Before we get started, you will need to install the following R packages: 
+
+```{r install, eval=FALSE}
+install.packages(c("devtools","styler","testthat"))
+```
+
+## Creating your package
+We will first create our package structure. Go to the directory where you want your package to be created. I am putting my package in the `"~/github/"` directory. Then use the `create` function to create a new R package structure:
+
+```{r create, results="hide", message=F}
+setwd("~/github/")
+devtools::create("mypackage")
+```
+
+Now go look at your new packge! Notice the `DESCRIPTION`, `LICENSE`, and `NAMESPACE` (more on this later) documents and `R` folder. The `R` folder is empty now, but this is were we will put our package functions. 
+
+## Creating your package
+You can automate your license selection with the **usethis** package in the tidyverse. We will assign an MIT open source license:
+
+```{r license, results="hide", message=F}
+setwd("~/github/mypackage")
+usethis::use_mit_license()
+```
+
+For more information on licenses, check out the following: [https://blog.codinghorror.com/pick-a-license-any-license/](https://blog.codinghorror.com/pick-a-license-any-license/)
+
+## Formatting functions
+Also important before we begin: The **tidyverse** gives you some more advanced code formatting help to make your package functions look very clear! Check out the the **styler** package (check out the Add In for RStudio!). For example: 
+```{r before, eval=FALSE}
+# Before
+x=3; y<-10
+if (x >3) {stop("this is an error")} else {
+    c(there_are_fairly_long,
+      1 / 33 * 
+          2 * long_long_variable_names)%>% k(
+              
+          ) }
+```
+
+## Formatting functions
+Go to **Addins$\rightarrow$style active file**
+```{r after, eval=FALSE}
+# After
+x <- 3
+y <- 10
+if (x > 3) {
+  stop("this is an error")
+} else {
+  c(
+    there_are_fairly_long,
+    1 / 33 *
+      2 * long_long_variable_names
+  ) %>% k()
+}
+```
+
+## Adding functions
+Okay! We are ready to start adding functions to our R package. In the `R/` directory, create a new file (RStudio$\rightarrow$R Script) named **hello.R** and add the code: 
+
+```{r hello,eval=F}
+hello <- function(){print("hello world!")}
+```
+
+Now, just this once, go to the `NAMESPACE` and add "export(hello)" to the file. This will make the `hello()` function available to users when they install the package. (Later, we will learn a better way!)
+
+## Installing packages
+Now we can install the package using `devtools::install`. From the `mypackage` package directory, enter:
+```{r install0, eval=FALSE }
+devtools::install()
+```
+
+Now check if it worked!
+```{r install1, eval=FALSE }
+library(mypackage)
+hello()
+```
+
+## Installing packages
+Now go and add two more functions to your package: __addition.R__ and __subtraction.R__. And make sure to add them to the NAMESPACE (this is the last time you should ever do this in your career!)
+
+Install the package and confirm that it works!
+
+## Documenting R packages
+There are some AMAZING tools, such as **roxygen2**, that are available that make documenting your packages very easy!  Add the following: 
+\tiny
+```{r document 0, eval=F}
+#' A one sentence description of what your function does
+#' 
+#' A more detailed description of what the function is and how
+#' it works. It may be a paragraph that should not be separated
+#' by any spaces. 
+#'
+#' @param inputParameter1 A description of the input parameter \code{inputParameter1}
+#' @param inputParameter2 A description of the input parameter \code{inputParameter2}
+#'
+#' @return output A description of the object the function outputs 
+#'
+#' @keywords keywords
+#'
+#' @export
+#' 
+#' @examples
+#' R code here showing how your function works
+
+myfunction <- function(inputParameter1, inputParameter2){
+	## Awesome code!
+	return(result)
+}
+```
+
+## Documenting R packages
+Once you have added documentation to all of your functions, use **devtools::document** to compile your documented code.
+
+```{r document 1, eval=F}
+devtools::document()
+```
+
+## Documenting R packages
+Now check to see how this changes your **mypackage** directory. Then reinstall the package, and look at the help for your functions, for example:
+```{r document 2, eval=F}
+?hello
+?addition
+?subtraction
+```
+
+## More documentation: Vignettes
+Documentation in the help files is important and is the primary way that people will figure out your functions if they get stuck. But it is equally (maybe more) critical that you help people get started. The way that you do that is to create a **vignette**. Vignettes can generate either HTML from R markdown, or pdf from latex.  
+\vskip .2in
+Go check some of your favorite R packages. I bet many of them have vignettes!
+
+## Session Info
+\tiny
+```{r session}
+sessionInfo()
+```
+

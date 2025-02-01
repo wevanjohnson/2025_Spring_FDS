@@ -1,0 +1,283 @@
+---
+title: "Introduction to the Tidyverse"
+author: | 
+  | W. Evan Johnson, Ph.D.
+  | Professor, Division of Infectious Disease
+  | Director, Center for Data Science
+  | Rutgers University -- New Jersey Medical School
+  | w.evan.johnson@rutgers.edu
+date: "`r Sys.Date()`"
+header-includes:
+  - \usepackage{amsmath}
+  - \usepackage{xcolor}
+  - \setbeamercolor{frametitle}{fg=black}
+  - \usepackage{graphicx}
+  - \usebackgroundtemplate{\includegraphics[width=\paperwidth]{rmdFigs/RH_template_Page_2.png}}
+  - \addtobeamertemplate{frametitle}{\vspace*{.25in}}{\vspace*{.25in}}
+  - \setbeamerfont{frametitle}{size=\huge}
+  - \usepackage{tikz}
+output: 
+  beamer_presentation
+classoption: aspectratio=169 
+editor_options: 
+  chunk_output_type: console
+tables: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(dslabs)
+```
+
+## Tidy format (murders data)
+
+We say that a data table is in **tidy** format if each row represents
+one observation and columns represent the different variables available
+for each of these observations. For example, the following data is in
+tidy format:
+
+```{r murder data}
+data(murders)
+head(murders)
+```
+
+## Not tidy format (fertility)
+
+The following dataset is organized, but not tidy. Why?
+\scriptsize
+```{r fertility_not_tidy}
+path <- system.file("extdata", package = "dslabs")
+filename <- file.path(path, "fertility-two-countries-example.csv")
+wide_data <- read_csv(filename)
+select(wide_data, country, `1960`:`1962`) %>% as.data.frame()
+```
+
+\normalsize
+
+## Tidy format (fertility)
+
+Here is how we would organize these data to be tidy:
+\footnotesize
+```{r fertility_tidy}
+data("gapminder")
+tidy_data <- gapminder %>%
+  filter(country %in% c("South Korea", "Germany") & 
+           !is.na(fertility)) %>%
+  select(country, year, fertility)
+head(tidy_data, 6)
+```
+
+
+## Tidy format
+
+The same information is provided, but there are important differences in
+the format. For the **tidyverse** packages to be optimally used, data
+need to be reshaped into \`tidy' format. The advantage of working in
+tidy format allows the data analyst to focus on more important aspects
+of the analysis rather than the format of the data.
+
+## Tidy data wrangling 
+
+The **dplyr** package, which is part of the **tidyverse**, presents a
+basic grammar for wrangling tidy data: 
+
+* mutate(): add or modify existing columns 
+* select(): take a subset of the columns (variables)
+* filter(): take a subset of the rows (observations) 
+* arrange(): sort the rows 
+* summarize(): aggregate data across rows
+
+Note an important point: most dplyr functions (and most functions in the
+tidyverse) input a tibble and then output a modified tibble!
+
+## Mutate
+
+The function **mutate** takes the data frame, the instructions for the
+new columns in next arguments, and returns a modified data frame. For
+example:
+
+```{r mutate_1}
+head(murders)
+```
+
+## Mutate
+To add murder rates, we mutate as follows:
+
+```{r mutate_2}
+murdersRate <- mutate(murders,
+  rate = total / population * 100000
+)
+head(murdersRate)
+```
+
+## Filter
+
+Now suppose that we want to filter the data table to only show the
+entries for which the murder rate is lower than 0.71. We do this as
+follows:
+\small
+```{r filter_1}
+filter(murdersRate, rate <= 0.71)
+```
+
+## Select
+
+If we want to view just a few of our columns, we can use the following:
+
+```{r select_1}
+murdersRate <- mutate(murders,
+  rate = total / population * 100000
+)
+murdersRateSelect <- select(murdersRate, state, rate)
+filter(murdersRateSelect, rate <= 0.71)
+```
+
+## Nesting functions
+
+Instead of defining new objects along the way, we could do everything in
+one complex nested function:
+\tiny
+```{r nest}
+filter(
+  select(
+    mutate(murders, rate = total / population * 100000),
+    state, rate
+  ),
+  rate <= 0.71
+)
+```
+\normalsize
+This is fairly concise but a little confusing. Is there a better way?
+
+## Pipes
+
+In the previous example, we performed the following wrangling
+operations:
+$$ \mbox{original data } \rightarrow \mbox{ mutate } \rightarrow \mbox{ select } \rightarrow \mbox{ filter } $$
+
+As with Unix, we can perform a series of operations in R by sending the
+results of one function to another using the **pipe operator**: %\>%. As
+of R version 4.1.0, you can also use \|\>.
+
+The pipe is a combination of characters that when used properly does two
+things: *It shortens and simplifies the code* and it makes the code
+intuitive to read.
+
+## Pipes
+
+All the pipe does is provide **forward application** of an object to the
+first argument of a function. The pipe sends left side of the input to
+the function to the right of the pipe. For example, if we wanted to
+calculate $$\log_2(\sqrt(16))$$
+
+We could use:
+\footnotesize
+```{r pipes_1}
+16 %>% sqrt() %>% log2()
+```
+
+\normalsize
+Since the pipe inputs to the first argument, we can define other
+arguments as follows:
+
+\footnotesize
+```{r pipes_2}
+16 %>% sqrt() %>% log(base = 2)
+```
+
+## Pipes (murders)
+Completing the prior tibble operation using pipes:
+
+\footnotesize
+```{r pipes_3}
+murders %>%
+  mutate(rate = total / population * 100000) %>%
+  select(state, rate) %>%
+  filter(rate <= 0.71)
+```
+
+\normalsize
+Note that as you can see, the pipe operators (%\>% or \|\>) are not
+specific to the tidyverse, in fact they come from the **magrittr**
+package (which is loaded by the tidyverse and dplyr libraries)
+
+## Arrange
+
+We know about the **order** and **sort** functions, but for ordering
+entire tables, the **arrange** function is much more useful. For
+example, here we order the states murder rate:
+
+\footnotesize
+```{r arrange_1}
+murdersRate %>%
+  arrange(rate) %>%
+  head()
+```
+
+## Arrange (descending order)
+Note that the default behavior is to order in ascending order. The
+function **desc** transforms a vector so that it is in descending order.
+To sort the table in descending order, we can type:
+
+\footnotesize
+```{r arrange_2}
+murdersRate %>%
+  arrange(desc(rate)) %>%
+  head()
+```
+
+## Nested sorting
+
+If we are ordering by a column with ties, we can use a second (or third)
+column to break the tie. for example:
+
+\small
+```{r arrange_3}
+murdersRate %>%
+  arrange(region, rate) %>%
+  head()
+```
+
+## Summarize
+
+The **summarize** function computes summary statistics in an intuitive
+way. The 'heights' dataset includes heights and sex reported by students
+in an in-class survey.
+
+```{r summarize_1}
+data(heights)
+heights %>%
+  filter(sex == "Female") %>%
+  summarize(
+    avg = mean(height),
+    std_dev = sd(height)
+  )
+```
+
+## Group then summarize with 'group_by'
+
+A common operation in data exploration is to first split data into
+groups and then compute summaries for each group. For example, we may
+want to compute the average and standard deviation for men's and women's
+heights separately. We can do the following
+
+\footnotesize
+```{r group_by_1}
+heights %>%
+  group_by(sex) %>%
+  summarize(
+    average = mean(height),
+    standard_deviation = sd(height)
+  )
+```
+
+## More on the tidyverse
+
+As you learn more about the tidyverse you will learn a few more tidyverse operations, including the __inner_join__, __left_join__, __pull__, __dot__, and __do__ functions, and the __tidyr__ package.
+
+## Session info
+\tiny
+```{r session info}
+sessionInfo()
+```
