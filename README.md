@@ -97,27 +97,27 @@ Essential Tools for Data Science (Week 3)
 Essential Tools for Data Science (Week 4)
 
 * 1/27/25: Git and GitHub
-* 1/29/25: Introduction to Advanced R Programming
+* 1/29/25: Introduction to R Programming
 
 Advanced data wrangling in R (week 5)
 
-* 2/3/25: RMarkdown; Data Structures
-* 2/5/25: The tidyverse; Tidydata wrangling
+* 2/3/25: RMarkdown; Data Structures (B554)
+* 2/5/25: The tidyverse; Tidydata wrangling (B554)
 
 Advanced R Tools (week 6)
 
-* 2/10/24: Creating R packages
-* 2/12/24: R/Shiny
+* 2/10/24: Creating R packages (B554)
+* 2/12/24: R/Shiny (C600)
 
 Data Visualization (Week 7)
 
-* 2/17/24: General plotting principles; Ggplot2
-* 2/19/24: D3, plotly, other advanced plotting tools
+* 2/17/24: General plotting principles; Ggplot2 (C600)
+* 2/19/24: More on ggplot; other advanced plotting tools (B554)
 
 Final Project Presentations (Week 8)
 
-* 2/24/24: Final student presentations (no class)
-* 2/26/24: Final student presentations (no class)
+* 2/24/24: Final student presentations (no class; view presentations online)
+* 2/26/24: Final student presentations (no class; evaluations due)
 
 
 ### ADDITIONAL (ASYNCHRONOUS) MODULES 
