@@ -1,0 +1,70 @@
+---
+title: "Homework 5: Making Your Own ggplot"
+author: GSND 5345Q, Fundamentals of Data Science
+date: "Multiple Due Dates (Video: Sun 2/23; Comments/write-up: Wed 2/26)"
+output: pdf_document
+---
+
+## **Objective**  
+Demonstrate your understanding of data visualization principles by creating an informative and well-annotated plot using `ggplot` in R. You will present your plot in a recorded video and engage with your peers by providing constructive feedback on their visualizations.  
+
+## **Instructions**  
+
+### **1. Find a Dataset**  
+Choose one of the following:  
+- A dataset provided in class.  
+- A dataset from your own research or work experience.  
+- A publicly available dataset from a credible source (Kaggle, government databases, academic repositories).  
+
+### **2. Create an R Markdown Report (50 points)**  
+- Use `ggplot2` to create **at least one** well-designed and well-annotated plot (or multiple plots) that meaningfully describe your dataset.  
+
+- Apply best practices in data visualization, such as:  
+  - Choosing an appropriate plot type for your data.  
+  - Using clear labels, titles, and legends.  
+  - Selecting effective color schemes.  
+  - Showing the data in a way that avoids misleading interpretations.  
+  - Encoding three or more variables when possible.
+
+- Provide a short written explanation of your plot, addressing:  
+  - What the plot shows and why it’s appropriate for your data.  
+  - Which visualization principles were applied.  
+  - Any design choices made to improve readability or clarity.  
+
+- Include your **fully reproducible code** in an R Markdown (`.Rmd`) file.  
+
+### **3. Video Presentation (50 points)**  
+- Record a **3-5-minute video** explaining your visualization.  
+- Your video should include:  
+  - A brief introduction to your dataset.  
+  - A walkthrough of your plot(s), describing the insights they reveal.  
+  - An overview of the code used to generate the plot.  
+  - A discussion of the **data visualization principles applied** in your work.  
+- Post your video in the Chat section on Canvas no later than **11:59 PM on Sunday, 2/23**.  
+
+### **4. Peer Review (50 points)**  
+- Watch **at least five** of your classmates’ videos.  
+- Provide **thoughtful and constructive comments** on each, focusing on:  
+  - Strengths of their plot design and presentation.  
+  - Suggestions for improvement (if applicable).  
+- Document your comments in your `.Rmd` file (include the names of the videos you reviewed).  
+- Submit the updated `.Rmd` file with your own plot code/comments and your peer review comments on Canvas no later than **11:59 PM on Wednesday, 2/26**.  
+
+## **Grading Breakdown**  
+
+| **Category**                 | **Points** |  
+|------------------------------|------------|  
+| Well-designed ggplot with clear annotations and applied principles | 50 |  
+| Video presentation with clear explanation and visualization discussion | 50 |  
+| Peer review with meaningful feedback on five classmates' videos | 50 |  
+| **Total** | **150** |  
+
+## **Additional Notes**  
+- Ensure your plots and video are accessible and understandable to someone unfamiliar with your dataset.  
+- Be concise but thorough in your explanations.  
+- Use proper formatting and grammar in your `.Rmd` file and comments.  
+- Engage respectfully and constructively in your peer reviews.  
+
+---
+
+*Happy plotting!*  

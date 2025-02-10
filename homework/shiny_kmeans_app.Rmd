@@ -1,0 +1,356 @@
+---
+title: "K Means Shiny App"
+author: "Evan Johnson"
+date: '`r Sys.Date()`'
+output: html_document
+---
+```{r setiup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(shiny)
+```
+
+## K means example {.tabset}
+
+This is a break down for the k-means example shiny app into easy to understand steps, adding a few shiny elements at a time. You can follow along and build the app using the template. Is is adapted from the [Kmeans example code from Joe Cheng at Rstudio](https://shiny.rstudio.com/gallery/kmeans-example.html)
+
+### Step 00: Template
+```{r, template, eval=F, echo=T}
+ui <- fluidPage(
+  
+  # Put a titlePanel here
+  
+  
+  sidebarLayout(
+    # Sidebar. Put your inputs inside the sidebarPanel
+    sidebarPanel(
+      
+    ),
+    
+    # Main panel. put your output plot here
+    mainPanel(
+      
+    )
+  )
+)
+
+server <- function(input, output, session) {
+
+}
+
+shinyApp(ui = ui, server = server)
+```
+
+### Step 01: Title Panel
+```{r, add title panel, eval=F, echo=T}
+ui <- fluidPage(
+  
+  # Put a titlePanel here
+  titlePanel("k-means clustering"),
+  
+  sidebarLayout(
+    # Sidebar. Put your inputs inside the sidebarPanel
+    sidebarPanel(
+      
+    ),
+    
+    # Main panel. put your output plot here
+    mainPanel(
+      
+    )
+  )
+)
+
+server <- function(input, output, session) {
+  
+}
+
+shinyApp(ui = ui, server = server)
+```
+
+### Step 02: UI inputs
+```{r, add ui inputs, eval=F, echo=T}
+ui <- fluidPage(
+  
+  # Put a titlePanel here
+  titlePanel("k-means clustering"),
+  
+  sidebarLayout(
+    # Sidebar. Put your inputs inside the sidebarPanel
+    sidebarPanel(
+      selectInput('xcol', 'X Variable', names(iris)),
+      selectInput('ycol', 'Y Variable', names(iris),
+                  selected=names(iris)[[2]]),
+      numericInput('clusters', 'Cluster count', 3,
+                   min = 1, max = 9)
+    ),
+    
+    # Main panel. put your output plot here
+    mainPanel(
+      
+    )
+  )
+)
+
+server <- function(input, output, session) {
+  
+}
+
+shinyApp(ui = ui, server = server)
+```
+
+### Step 03: UI outputs
+```{r, add ui outputs, eval=F, echo=T}
+ui <- fluidPage(
+  
+  # Put a titlePanel here
+  titlePanel("k-means clustering"),
+  
+  sidebarLayout(
+    # Sidebar. Put your inputs inside the sidebarPanel
+    sidebarPanel(
+      selectInput('xcol', 'X Variable', names(iris)),
+      selectInput('ycol', 'Y Variable', names(iris),
+                  selected=names(iris)[[2]]),
+      numericInput('clusters', 'Cluster count', 3,
+                   min = 1, max = 9)
+    ),
+    
+    # Main panel. put your output plot here
+    mainPanel(
+      plotOutput('plot1')
+    )
+  )
+)
+
+server <- function(input, output, session) {
+  
+}
+
+shinyApp(ui = ui, server = server)
+```
+
+### Step 04: Output plot
+```{r, add output plot, eval=F, echo=T}
+ui <- fluidPage(
+  
+  # Put a titlePanel here
+  titlePanel("k-means clustering"),
+  
+  sidebarLayout(
+    # Sidebar. Put your inputs inside the sidebarPanel
+    sidebarPanel(
+      selectInput('xcol', 'X Variable', names(iris)),
+      selectInput('ycol', 'Y Variable', names(iris),
+                  selected=names(iris)[[2]]),
+      numericInput('clusters', 'Cluster count', 3,
+                   min = 1, max = 9)
+    ),
+    
+    # Main panel. put your output plot here
+    mainPanel(
+      plotOutput('plot1')
+    )
+  )
+)
+
+server <- function(input, output, session) {
+  output$plot1 <- renderPlot({
+    plot(iris[,c("Sepal.Length","Sepal.Width")])
+  })
+}
+
+shinyApp(ui = ui, server = server)
+```
+
+### Step 05: Reactive Axes
+```{r, add reactive axes, eval=F, echo=T}
+ui <- fluidPage(
+  
+  # Put a titlePanel here
+  titlePanel("k-means clustering"),
+  
+  sidebarLayout(
+    # Sidebar. Put your inputs inside the sidebarPanel
+    sidebarPanel(
+      selectInput('xcol', 'X Variable', names(iris)),
+      selectInput('ycol', 'Y Variable', names(iris),
+                  selected=names(iris)[[2]]),
+      numericInput('clusters', 'Cluster count', 3,
+                   min = 1, max = 9)
+    ),
+    
+    # Main panel. put your output plot here
+    mainPanel(
+      plotOutput('plot1')
+    )
+  )
+)
+
+server <- function(input, output, session) {
+  output$plot1 <- renderPlot({
+    plot(iris[,c(input$xcol,input$ycol)])
+  })
+}
+
+shinyApp(ui = ui, server = server)
+```
+
+### Step 06: K means
+```{r, add K means clustering, eval=F, echo=T}
+ui <- fluidPage(
+  
+  # Put a titlePanel here
+  titlePanel("k-means clustering"),
+  
+  sidebarLayout(
+    # Sidebar. Put your inputs inside the sidebarPanel
+    sidebarPanel(
+      selectInput('xcol', 'X Variable', names(iris)),
+      selectInput('ycol', 'Y Variable', names(iris),
+                  selected=names(iris)[[2]]),
+      numericInput('clusters', 'Cluster count', 3,
+                   min = 1, max = 9)
+    ),
+    
+    # Main panel. put your output plot here
+    mainPanel(
+      plotOutput('plot1')
+    )
+  )
+)
+
+server <- function(input, output, session) {
+
+  output$plot1 <- renderPlot({
+    plot(iris[,c(input$xcol,input$ycol)],
+         col = kmeans(iris[,c(input$xcol,input$ycol)], input$clusters)$cluster)
+  })
+}
+
+shinyApp(ui = ui, server = server)
+```
+
+### Step 07: Cluster centers
+```{r, add cluster centers, eval=F, echo=T}
+ui <- fluidPage(
+  
+  # Put a titlePanel here
+  titlePanel("k-means clustering"),
+  
+  sidebarLayout(
+    # Sidebar. Put your inputs inside the sidebarPanel
+    sidebarPanel(
+      selectInput('xcol', 'X Variable', names(iris)),
+      selectInput('ycol', 'Y Variable', names(iris),
+                  selected=names(iris)[[2]]),
+      numericInput('clusters', 'Cluster count', 3,
+                   min = 1, max = 9)
+    ),
+    
+    # Main panel. put your output plot here
+    mainPanel(
+      plotOutput('plot1')
+    )
+  )
+)
+
+server <- function(input, output, session) {
+  
+  output$plot1 <- renderPlot({
+    plot(iris[,c(input$xcol,input$ycol)],
+         col = kmeans(iris[,c(input$xcol,input$ycol)], input$clusters)$cluster)
+    points(kmeans(iris[,c(input$xcol,input$ycol)], input$clusters)$centers, pch = 4, cex = 4, lwd = 4)
+  })
+}
+
+shinyApp(ui = ui, server = server)
+```
+
+### Step 08: Save Kmeans
+```{r, save k means result as reactive, eval=F, echo=T}
+ui <- fluidPage(
+  
+  # Put a titlePanel here
+  titlePanel("k-means clustering"),
+  
+  sidebarLayout(
+    # Sidebar. Put your inputs inside the sidebarPanel
+    sidebarPanel(
+      selectInput('xcol', 'X Variable', names(iris)),
+      selectInput('ycol', 'Y Variable', names(iris),
+                  selected=names(iris)[[2]]),
+      numericInput('clusters', 'Cluster count', 3,
+                   min = 1, max = 9)
+    ),
+    
+    # Main panel. put your output plot here
+    mainPanel(
+      plotOutput('plot1')
+    )
+  )
+)
+
+server <- function(input, output, session) {
+  
+  clusters <- reactive({
+    kmeans(iris[,c(input$xcol,input$ycol)], input$clusters)
+  })
+  
+  output$plot1 <- renderPlot({
+    plot(iris[,c(input$xcol,input$ycol)],
+         col = clusters()$cluster)
+    points(clusters()$centers, pch = 4, cex = 4, lwd = 4)
+  })
+}
+
+shinyApp(ui = ui, server = server)
+```
+
+### Step 09: Final App
+```{r, final app, eval=F, echo=T}
+ui <- fluidPage(
+  
+  # Put a titlePanel here
+  titlePanel("k-means clustering"),
+  
+  sidebarLayout(
+    # Sidebar. Put your inputs inside the sidebarPanel
+    sidebarPanel(
+      selectInput('xcol', 'X Variable', names(iris)),
+      selectInput('ycol', 'Y Variable', names(iris),
+                  selected=names(iris)[[2]]),
+      numericInput('clusters', 'Cluster count', 3,
+                   min = 1, max = 9)
+    ),
+    
+    # Main panel. put your output plot here
+    mainPanel(
+      plotOutput('plot1')
+    )
+  )
+)
+
+server <- function(input, output, session) {
+  
+  selectedData <- reactive({
+    iris[, c(input$xcol, input$ycol)]
+  })
+  
+  clusters <- reactive({
+    kmeans(selectedData(), input$clusters)
+  })
+  
+  output$plot1 <- renderPlot({
+    palette(c("#E41A1C", "#377EB8", "#4DAF4A", "#984EA3",
+              "#FF7F00", "#FFFF33", "#A65628", "#F781BF", "#999999"))
+    
+    par(mar = c(5.1, 4.1, 0, 1))
+    plot(selectedData(),
+         col = clusters()$cluster,
+         pch = 20, cex = 3)
+    points(clusters()$centers, pch = 4, cex = 4, lwd = 4)
+  })
+}
+
+shinyApp(ui = ui, server = server)
+```
