@@ -4,7 +4,7 @@
 
 ### COURSE DESCRIPTION:
 
-This class is an introduction to the ethics and essential computational tools and skills for data science. The course will cover command-line coding, literate programming, software development, version control, data wrangling and management, and visualization. The standards for open science, reproducibility, and ethical and responsible computing will also be discussed. Students be expected to use R and GitHub throughout this course.
+This class is an introduction to the ethics and essential computational tools and skills for data science. The course will cover command-line coding, literate programming, software development, version control, data wrangling and management, and visualization. The standards for open science, reproducibility, and ethical and responsible computing will also be discussed. Students are expected to use R and GitHub throughout this course. 
 
 ### COURSE OBJECTIVES:
 Students who take this course will: 
@@ -24,7 +24,7 @@ This class will be taught virtually using a synchronous remote modality, althoug
 ### ZOOM LINK AND CLASSROOM:
 Zoom Meeting ID for all sessions is 95398689633, with the passcode: 065918, or use the following direct link (the link is also available though the course GitHub page): https://rutgers.zoom.us/j/95398689633?pwd=fLMqBabEI3KR9qFIFYbswe08IdZM1Q.1.
 
-Room B554 will also be available for the students to congregate for each lecture, with a co-intructor present. 
+Room B554 will also be available for the students to congregate for each lecture, with a co-instructor present. 
 
 ### FACULTY AND STAFF: 
 W. Evan Johnson, Ph.D.\
@@ -63,7 +63,7 @@ Grade Scale:
 This course is being taught through a synchronous remote modality through Zoom. Attendance is mandatory; lecture recordings will only be available to students with university approved absences or pre-approved special circumstances. If you are sick or have any other justified reason to miss a lecture, please reach out to Dr. Johnson in advance and you will be reasonably accommodated.
 
 ### WORKLOAD:
-This is an 8-week, 2.0 credit class in the begining of Spring 2025. In general, you should expect four hours of in class each week, and two hours outside of class for every hour in class.
+This is an 8-week, 2.0 credit class in the beginning of Spring 2025. In general, you should expect four hours of in class each week, and two hours outside of class for every hour in class.
 
 ### OTHER HELP: 
 I **strongly** encourage you to contact early me if you have difficulty with the material. This course builds on material from prior lectures, so do not fall behind! My job is to help you understand the material as well as possible, and I am flexible with meeting times.
@@ -73,8 +73,8 @@ You are expected to have read and follow the guidelines at the university’s ac
 
 * Properly acknowledge and cite all use of the ideas, results, or words of others
 * Properly acknowledge all contributors to a given piece of work
-* Make sure that all work submitted as his or her own in a course or other academic activity isproduced without the aid of unsanctioned materials or unsanctioned collaboration
-* Treat all other students in an ethical manner, respecting their integrity and right to pursue their educational goals without interference. This requires that a student neither facilitate academic dishonesty by others nor obstruct their academic progress (reproduced from: ttp://academicintegrity.rutgers.edu/academic-integrity-at-rutgers/ ).
+* Make sure that all work submitted as his or her own in a course or other academic activity is produced without the aid of unsanctioned materials or unsanctioned collaboration
+* Treat all other students in an ethical manner, respecting their integrity and right to pursue their educational goals without interference. This requires that a student neither facilitate academic dishonesty by others nor obstruct their academic progress (reproduced from: http://academicintegrity.rutgers.edu/academic-integrity-at-rutgers/ ).
 
 Violations of academic integrity will be treated in accordance with university policy, and sanctions for violations may range from no credit for the assignment, to a failing course grade to (for the most severe violations) dismissal from the university.
 
@@ -106,18 +106,18 @@ Advanced data wrangling in R (week 5)
 
 Advanced R Tools (week 6)
 
-* 2/10/24: Creating R packages (B554)
-* 2/12/24: R/Shiny (C600)
+* 2/10/25: Creating R packages (B554)
+* 2/12/25: R/Shiny (C600)
 
 Data Visualization (Week 7)
 
-* 2/17/24: General plotting principles; Ggplot2 (C600)
-* 2/19/24: More on ggplot; other advanced plotting tools (B554)
+* 2/17/25: General plotting principles; Ggplot2 (C600)
+* 2/19/25: More on ggplot; other advanced plotting tools (B554)
 
 Final Project Presentations (Week 8)
 
-* 2/24/24: Final student presentations (no class; view presentations online)
-* 2/26/24: Final student presentations (no class; evaluations due)
+* 2/24/25: Final student presentations (no class; view presentations online)
+* 2/26/25: Final student presentations (no class; evaluations due)
 
 
 ### ADDITIONAL (ASYNCHRONOUS) MODULES 
