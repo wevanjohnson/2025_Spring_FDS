@@ -297,10 +297,29 @@ There is a lot more you can do with R markdown. We highly recommend you continue
 2. The cheat sheet: https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf
 3. The knitR book: https://yihui.name/knitr/
 
-## Exercises
-R markdown is a powerful tool for literate prgramming. To gain more practice, recreate the .Rmd file for
-the example file: "Rmarkdown_example.html."
+## More Practice
+R markdown is a powerful tool for literate prgramming. To gain more practice, as part of your homework you will recreate the .Rmd file for the example file in the homework folder: "Rmarkdown_example.html."
 
+## Install the following packages:
+For the next lecture on tidyverse R packages please install the following: 
+
+The tidyverse:
+
+```{r, eval=F}
+install.packages("tidyverse")
+```
+
+R Packages:
+
+```{r, eval=F}
+install.packages(c("devtools","styler","testthat"))
+```
+
+Shiny:
+
+```{r, eval=F}
+install.packages("shiny")
+```
 
 ## Session info
 \tiny
