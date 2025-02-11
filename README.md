@@ -14,6 +14,7 @@ Students who take this course will:
 3. Understand the principles and concepts surrounding reproducibility and open science 
 4. Discuss the ethical issues and potential bias in data and machine learning
 5. Learn how to effectively plot and visualize data (know what to do and not to do!)
+6. Gain experience with Git and GitHub as well as coding in Unix
 
 ### PREREQUISITES
 An introductory course in statistics, biostatistics, epidemiology, or equivalent experience in statistical analysis is recommended (but not required). Programming experience in R is also recommended (again not required). Students without this experience will be encouraged to utilize the asynchronous resources provided at the end of this syllabus to obtain these skills before or during the course. Please contact Dr. Johnson to obtain a list of the required proficiencies.   
