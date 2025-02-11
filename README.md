@@ -14,17 +14,18 @@ Students who take this course will:
 3. Understand the principles and concepts surrounding reproducibility and open science 
 4. Discuss the ethical issues and potential bias in data and machine learning
 5. Learn how to effectively plot and visualize data (know what to do and not to do!)
+6. Learned how to use Git, GitHub, Unix and Amarel.
 
 ### PREREQUISITES
 An introductory course in statistics, biostatistics, epidemiology, or equivalent experience in statistical analysis is recommended (but not required). Programming experience in R is also recommended (again not required). Students without this experience will be encouraged to utilize the asynchronous resources provided at the end of this syllabus to obtain these skills before or during the course. Please contact Dr. Johnson to obtain a list of the required proficiencies.   
 
 ### COURSE FORMAT:
-This class will be taught virtually using a synchronous remote modality, although students will be provided a classroom to gather for each lecture. A co-instructor will be present in the classroom for each lecture. Class will occur Mondays and Wednesdays from 10:00am-11:50am. Courses may also be recorded and made available for students who need to miss classes due to personal reasons, illness, or research related needs.
+This class will be taught virtually using a synchronous remote modality, although students will be provided a classroom to gather for each lecture. A co-instructor will be present in the classroom for each lecture. The class will occur Mondays and Wednesdays from 10:00 am to 11:50 am. Courses may also be recorded and made available for students who need to miss classes due to personal reasons, illness, or research-related needs.
 
 ### ZOOM LINK AND CLASSROOM:
-Zoom Meeting ID for all sessions is 95398689633, with the passcode: 065918, or use the following direct link (the link is also available though the course GitHub page): https://rutgers.zoom.us/j/95398689633?pwd=fLMqBabEI3KR9qFIFYbswe08IdZM1Q.1.
+Zoom Meeting ID for all sessions is 95398689633, with the passcode: 065918, or use the following direct link (the link is also available through the course GitHub page): https://rutgers.zoom.us/j/95398689633?pwd=fLMqBabEI3KR9qFIFYbswe08IdZM1Q.1.
 
-Room B554 will also be available for the students to congregate for each lecture, with a co-intructor present. 
+Room B554 will also be available for the students to congregate for each lecture, with a co-instructor present. 
 
 ### FACULTY AND STAFF: 
 W. Evan Johnson, Ph.D.\
@@ -38,7 +39,7 @@ Email: ajv120@njms.rutgers.edu
 **Instructor:** Dr. Johnson will be available virtually by appointment only. Email or text him any time to set up a time to meet!
 
 ### GitHub REPOSITORY:
-The course GitHub repository is located at: https://github.com/wevanjohnson/2025_Spring_FDS. This page will contain all information in this syllabus plus more. Homework assignments and other information pertinent to this course will be posted on this web site, which will be updated frequently, so you should visit it regularly.
+The course GitHub repository is located at: https://github.com/wevanjohnson/2025_Spring_FDS. This page will contain all the information in this syllabus plus more. Homework assignments and other information pertinent to this course will be posted on this website, which will be updated frequently, so you should visit it regularly.
 
 ### COURSE TEXTBOOKS:
 We will use multiple text resources in this class. None are required, all are freely available online or can be purchased in hard-copy. Many of my materials are adapted from these resources (thanks to the authors for these):
@@ -50,7 +51,7 @@ We will use multiple text resources in this class. None are required, all are fr
 
 ## EVALUATION METHODS & COURSE GRADING
 ### Assessment/Evaluation:
-This course is a hands-on, project-based course. You will be graded based on homework assignments/mini projects (70\%) and your final project (30\%; there will be no final exam). Homework assignments and mini projects will be usually assigned at the beginning of each week and will be due by Wednesday of the week after the material is covered. However, please plan to be flexible on due dates based on the material covered in class.
+This course is a hands-on, project-based course. You will be graded based on homework assignments/mini projects (70\%) and your final project (30\%; there will be no final exam). Homework assignments and mini-projects will usually be assigned at the beginning of each week and will be due by Wednesday of the week after the material is covered. However, please plan to be flexible on due dates based on the material covered in class.
 
 ### Course Grading:
 Grade Scale:
@@ -60,23 +61,23 @@ Grade Scale:
 |Grade|A|B+|B|C+|C|F 
 
 ### ATTENDANCE:
-This course is being taught through a synchronous remote modality through Zoom. Attendance is mandatory; lecture recordings will only be available to students with university approved absences or pre-approved special circumstances. If you are sick or have any other justified reason to miss a lecture, please reach out to Dr. Johnson in advance and you will be reasonably accommodated.
+This course is being taught through a synchronous remote modality through Zoom. Attendance is mandatory; lecture recordings will only be available to students with university-approved absences or pre-approved special circumstances. If you are sick or have any other justified reason to miss a lecture, please reach out to Dr. Johnson in advance, and you will be reasonably accommodated.
 
 ### WORKLOAD:
-This is an 8-week, 2.0 credit class in the begining of Spring 2025. In general, you should expect four hours of in class each week, and two hours outside of class for every hour in class.
+This is an 8-week, 2.0 credit class at the beginning of Spring 2025. In general, you should expect four hours of in-class each week and two hours outside of class for every hour in class.
 
 ### OTHER HELP: 
-I **strongly** encourage you to contact early me if you have difficulty with the material. This course builds on material from prior lectures, so do not fall behind! My job is to help you understand the material as well as possible, and I am flexible with meeting times.
+I **strongly** encourage you to contact me early if you have difficulty with the material. This course builds on material from prior lectures, so do not fall behind! My job is to help you understand the material as well as possible, and I am flexible with meeting times.
 
 ### ACADEMIC INTEGRITY: 
 You are expected to have read and follow the guidelines at the university’s academic integrity website (http://academicintegrity.rutgers.edu ). These principles forbid plagiarism and require that every Rutgers University student to:
 
 * Properly acknowledge and cite all use of the ideas, results, or words of others
 * Properly acknowledge all contributors to a given piece of work
-* Make sure that all work submitted as his or her own in a course or other academic activity isproduced without the aid of unsanctioned materials or unsanctioned collaboration
+* Make sure that all work submitted as his or her own in a course or other academic activity is produced without the aid of unsanctioned materials or unsanctioned collaboration
 * Treat all other students in an ethical manner, respecting their integrity and right to pursue their educational goals without interference. This requires that a student neither facilitate academic dishonesty by others nor obstruct their academic progress (reproduced from: ttp://academicintegrity.rutgers.edu/academic-integrity-at-rutgers/ ).
 
-Violations of academic integrity will be treated in accordance with university policy, and sanctions for violations may range from no credit for the assignment, to a failing course grade to (for the most severe violations) dismissal from the university.
+Violations of academic integrity will be treated in accordance with university policy, and sanctions for violations may range from no credit for the assignment to a failing course grade to (for the most severe violations) dismissal from the university.
 
 ### COURSE TOPICS AND OUTLINE (BY WEEK; MAY BE MODIFIED AS NEEDED)
 Introduction to and Ethics of Data Science (Week 1)
@@ -106,18 +107,18 @@ Advanced data wrangling in R (week 5)
 
 Advanced R Tools (week 6)
 
-* 2/10/24: Creating R packages (B554)
-* 2/12/24: R/Shiny (C600)
+* 2/10/25: Creating R packages (B554)
+* 2/12/25: R/Shiny (C600)
 
 Data Visualization (Week 7)
 
-* 2/17/24: General plotting principles; Ggplot2 (C600)
-* 2/19/24: More on ggplot; other advanced plotting tools (B554)
+* 2/17/25: General plotting principles; Ggplot2 (C600)
+* 2/19/25: More on ggplot; other advanced plotting tools (B554)
 
 Final Project Presentations (Week 8)
 
-* 2/24/24: Final student presentations (no class; view presentations online)
-* 2/26/24: Final student presentations (no class; evaluations due)
+* 2/24/25: Final student presentations (no class; view presentations online)
+* 2/26/25: Final student presentations (no class; evaluations due)
 
 
 ### ADDITIONAL (ASYNCHRONOUS) MODULES 
