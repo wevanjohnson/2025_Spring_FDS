@@ -1,10 +1,10 @@
-# Fundamentals of Data Science
+me# Fundamentals of Data Science
 
 ## Spring (January-February), 2025
 
 ### COURSE DESCRIPTION:
 
-This class is an introduction to the ethics and essential computational tools and skills for data science. The course will cover command-line coding, literate programming, software development, version control, data wrangling and management, and visualization. The standards for open science, reproducibility, and ethical and responsible computing will also be discussed. Students be expected to use R and GitHub throughout this course.
+This class is an introduction to the ethics and essential computational tools and skills for data science. The course will cover command-line coding, literate programming, software development, version control, data wrangling and management, and visualization. The standards for open science, reproducibility, and ethical and responsible computing will also be discussed. Students will be expected to use R and GitHub throughout this course.
 
 ### COURSE OBJECTIVES:
 Students who take this course will: 
@@ -16,7 +16,7 @@ Students who take this course will:
 5. Learn how to effectively plot and visualize data (know what to do and not to do!)
 
 ### PREREQUISITES
-An introductory course in statistics, biostatistics, epidemiology, or equivalent experience in statistical analysis is recommended (but not required). Programming experience in R is also recommended (again not required). Students without this experience will be encouraged to utilize the asynchronous resources provided at the end of this syllabus to obtain these skills before or during the course. Please contact Dr. Johnson to obtain a list of the required proficiencies.   
+An introductory course in statistics, biostatistics, epidemiology, or equivalent experience in statistical analysis is recommended (but not required). Programming experience in R is also recommended (again not required). Students without this experience will be encouraged to utilize the asynchronous resources provided at the end of this syllabus to obtain these skills before or during the course. Please contact me to obtain a list of the required proficiencies.   
 
 ### COURSE FORMAT:
 This class will be taught virtually using a synchronous remote modality, although students will be provided a classroom to gather for each lecture. A co-instructor will be present in the classroom for each lecture. Class will occur Mondays and Wednesdays from 10:00am-11:50am. Courses may also be recorded and made available for students who need to miss classes due to personal reasons, illness, or research related needs.
@@ -35,7 +35,7 @@ Co-instructor: Arthur VanValkenburg\
 Email: ajv120@njms.rutgers.edu
 
 ### OFFICE HOURS: 
-**Instructor:** Dr. Johnson will be available virtually by appointment only. Email or text him any time to set up a time to meet!
+**Instructor:** I will be available virtually by appointment only. You can email or text me to set up a time for office hour.
 
 ### GitHub REPOSITORY:
 The course GitHub repository is located at: https://github.com/wevanjohnson/2025_Spring_FDS. This page will contain all information in this syllabus plus more. Homework assignments and other information pertinent to this course will be posted on this web site, which will be updated frequently, so you should visit it regularly.
