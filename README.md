@@ -1,6 +1,6 @@
 # Fundamentals of Data Science
 
-## Spring (January-February), 2025
+## Spring (January 6th -February 24th), 2025
 
 ### COURSE DESCRIPTION:
 
@@ -112,7 +112,7 @@ Advanced R Tools (week 6)
 Data Visualization (Week 7)
 
 * 2/17/24: General plotting principles; Ggplot2 (C600)
-* 2/19/24: More on ggplot; other advanced plotting tools (B554)
+* 2/19/24: More on ggplot; other advanced plotting tools (B554) (HW 4 due)
 
 Final Project Presentations (Week 8)
 
