@@ -15,9 +15,11 @@ Now its time to practice what we have learned in class and learn even more! Note
 
 \subsection*{R Markdown (30 points; +20 points extra credit)}
 
-1.\ (30 points) R markdown is a powerful tool for literate programming. To gain more practice, as part recreate the `.Rmd` file for the example file in the homework folder: “Rmarkdown_example.html.”
+1.\ (20 points EXTRA CREDIT) Complete the markdown tutorial at [https://www.markdowntutorial.com/](https://www.markdowntutorial.com/). Confirm here that you completed it (on your honor!). 
 
-2.\ (20 points EXTRA CREDIT) Complete the markdown tutorial at [https://www.markdowntutorial.com/](https://www.markdowntutorial.com/). Confirm here that you completed it (on your honor!). 
+2.\ (30 points) R markdown is a powerful tool for literate programming. To gain more practice, as part recreate the `.Rmd` file for the example file in the homework folder: “Rmarkdown_example.html.”
+
+
 
 \subsection*{Tidyverse (50 points; 2 points each)}
 
