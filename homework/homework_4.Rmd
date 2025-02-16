@@ -9,13 +9,15 @@ Now its time to practice what we have learned in class and learn even more! Note
 
 \subsection*{Data Structures (20 points)}
 
-1.\ (10 points) Learn more about the **scan**, **readLines**, **read\_html**, **readr**, and **readxl** functions for getting data into R. Use the data into a tibble using R.  How are these different from the functions we learned in class? Report what you find and give some examples!
+1.\ (10 points) Learn more about the **scan**, **readLines**, **read\_html**, **readr**, and **readxl** functions for getting data into R. Use these functions to read data from a files into a tibble using R. You can use your own data example or a dataset used in class.  How are these different from the functions we learned in class? Report what you find and give some examples!
 
 2.\	(10 points) Learn about the  **S3**,  **S4**, and  **R6** classes in R. When do you think you would use these? Describe what you learned and give some examples! 
 
-\subsection*{R Markdown (30 points)}
+\subsection*{R Markdown (30 points; +20 points extra credit)}
 
 1.\ (30 points) R markdown is a powerful tool for literate programming. To gain more practice, as part recreate the `.Rmd` file for the example file in the homework folder: “Rmarkdown_example.html.”
+
+2.\ (20 points EXTRA CREDIT) Complete the markdown tutorial at [https://www.markdowntutorial.com/](https://www.markdowntutorial.com/). Confirm here that you completed it (on your honor!). 
 
 \subsection*{Tidyverse (50 points; 2 points each)}
 
