@@ -227,7 +227,7 @@ exp(mean(log(murders$population)))
 
 Write it using the pipe so that each function is called without arguments. Use the dot operator to access the population. Hint: The code should start with `murders %>%`.
     
-25\. Use the `map_df` to create a data frame with three columns named `n`, `s_n`, and `s_n_2`. The first column should contain the numbers 1 through 100. The second and third columns should each contain the sum of 1 through $n$ with $n$ the row number.  
+25\. (Extra credit) Use the `map_df` to create a data frame with three columns named `n`, `s_n`, and `s_n_2`. The first column should contain the numbers 1 through 100. The second and third columns should each contain the sum of 1 through $n$ and 1 through $n^2$ respectively, where $n$ the row number.  
 
 
 \subsection*{R Packages and Shiny (50 points)}
