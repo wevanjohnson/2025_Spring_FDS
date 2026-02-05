@@ -22,7 +22,7 @@ An introductory course in statistics, biostatistics, epidemiology, or equivalent
 This class will be taught virtually using a synchronous remote modality, although students will be provided a classroom to gather for each lecture. A co-instructor will be present in the classroom for each lecture. Class will occur Mondays and Wednesdays from 10:00am-11:50am. Courses may also be recorded and made available for students who need to miss classes due to personal reasons, illness, or research related needs.
 
 ### ZOOM LINK AND CLASSROOM:
-Zoom Meeting ID for all sessions is 95398689633, with the passcode: 065918, or use the following direct link (the link is also available though the course GitHub page): https://rutgers.zoom.us/j/95398689633?pwd=fLMqBabEI3KR9qFIFYbswe08IdZM1Q.1.
+Zoom Meeting ID for all sessions is 95146491967, with the passcode: ySdIKF1NFl4wAOhtAwhop825QUYWWL.1., or use the following direct link (the link is also available though the course GitHub page): https://rutgers.zoom.us/j/95146491967?pwd=ySdIKF1NFl4wAOhtAwhop825QUYWWL.1
 
 Room B554 will also be available for the students to congregate for each lecture, with a co-intructor present. 
 
