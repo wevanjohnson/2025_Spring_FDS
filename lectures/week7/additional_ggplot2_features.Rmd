@@ -33,7 +33,7 @@ img_path <- "vizFigs/"
 
 ## Case Study: Describing Student Heights
 
-Suppose that we have want to summarize to the heights of our classmates. We collect data on a set of individuals and save it in the `heights` data frame:
+Suppose that we want to summarize the heights of our classmates. We collect data on a set of individuals and save it in the `heights` data frame:
 
 ```{r load-heights, warning=FALSE, message=FALSE}
 data(heights)
