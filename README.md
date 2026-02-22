@@ -50,7 +50,9 @@ We will use multiple text resources in this class. None are required, all are fr
 
 ## EVALUATION METHODS & COURSE GRADING
 ### Assessment/Evaluation:
-This course is a hands-on, project-based course. You will be graded based on homework assignments/mini projects (70\%) and your final project (30\%; there will be no final exam). Homework assignments and mini projects will be usually assigned at the beginning of each week and will be due by Wednesday of the week after the material is covered. However, please plan to be flexible on due dates based on the material covered in class.
+This course is a hands-on, project-based course. You will be graded based on homework assignments/mini projects (70\%) and your final project (30\%; there 
+will be no final exam). Homework assignments and mini projects will be usually assigned at the beginning of each week and will be due by Monday of the 
+week after the material is covered. However, please plan to be flexible on due dates based on the material covered in class.
 
 ### Course Grading:
 Grade Scale:
