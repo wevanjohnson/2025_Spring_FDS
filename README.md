@@ -106,18 +106,18 @@ Advanced data wrangling in R (week 5)
 
 Advanced R Tools (week 6)
 
-* 2/10/24: Creating R packages (B554)
-* 2/12/24: R/Shiny (C600)
+* 2/10/25: Creating R packages (B554)
+* 2/12/25: R/Shiny (C600)
 
 Data Visualization (Week 7)
 
-* 2/17/24: General plotting principles; Ggplot2 (C600)
-* 2/19/24: More on ggplot; other advanced plotting tools (B554)
+* 2/17/25: General plotting principles; Ggplot2 (C600)
+* 2/19/25: More on ggplot; other advanced plotting tools (B554)
 
 Final Project Presentations (Week 8)
 
-* 2/24/24: Final student presentations (no class; view presentations online)
-* 2/26/24: Final student presentations (no class; evaluations due)
+* 2/24/25: Final student presentations (no class; view presentations online)
+* 2/26/25: Final student presentations (no class; evaluations due)
 
 
 ### ADDITIONAL (ASYNCHRONOUS) MODULES 
