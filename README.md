@@ -38,7 +38,7 @@ Email: ajv120@njms.rutgers.edu
 **Instructor:** Dr. Johnson will be available virtually by appointment only. Email or text him any time to set up a time to meet!
 
 ### GitHub REPOSITORY:
-The course GitHub repository is located at: https://github.com/wevanjohnson/2025_Spring_FDS. This page will contain all information in this syllabus plus more. Homework assignments and other information pertinent to this course will be posted on this web site, which will be updated frequently, so you should visit it regularly.
+The course GitHub repository is located at: https://github.com/wevanjohnson/2025_Spring_FDS. This page will contain all information in this syllabus, as well as homework assignments and lecture notes. You should visit the GitHub regularly, as it is updated frequently with new homework assignments, upcoming lecture slides, and other course information!
 
 ### COURSE TEXTBOOKS:
 We will use multiple text resources in this class. None are required, all are freely available online or can be purchased in hard-copy. Many of my materials are adapted from these resources (thanks to the authors for these):
