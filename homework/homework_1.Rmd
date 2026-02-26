@@ -28,24 +28,18 @@ Your answers should be detailed and include references to relevant ethical princ
 **Case Study 1: Biased Algorithms**  
 *Description:* Amazon's AI hiring tool showed bias against female candidates.  
 
-  - Ethical Issues: Algorithm trained on historical data reflecting gender bias.
-  - Lessons Learned: Importance of diverse and unbiased training datasets.
 
 **Case Study 2: Data Privacy Breach**  
 *Description:* Cambridge Analytica's misuse of Facebook data.  
 
-  - Ethical Issues: Unauthorized use of personal data for political campaigns.
-  - Lessons Learned: Strengthening data consent mechanisms and user awareness.
-
+  
 **Case Study 3: Facial Recognition Technology**  
 *Description:* Use of facial recognition by law enforcement.  
  
-  - Ethical Issues: Privacy invasion and racial bias in accuracy.
-  - Lessons Learned: Need for strict regulations and ethical guidelines.
+  
 
 **Case Study 4: Redlining**  
 
 *Description:* Historically, mortgage lenders once widely redlined core urban neighborhoods and Black-populated neighborhoods in particular.  
 
-  - Ethical Issues: Discrimination and perpetuation of economic inequalities through biased practices.
-  - Lessons Learned: Need for equitable lending practices and proactive measures to address systemic bias.
+ the edit ive made was to exclude the description of the issue itself because it makes it too easy and the students need to figure out what needs to be done
