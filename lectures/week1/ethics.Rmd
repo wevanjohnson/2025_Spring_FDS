@@ -86,6 +86,12 @@ The best-known professional ethics standards are those in the Hippocratic Oath f
 * “I will respect the privacy of my patients, for their problems are not disclosed to me that the world may know.”
 * “I will remember that I remain a member of society, with special obligations to all my fellow human beings, those sound of mind and body as well as the infirm.”
 
+#Addendum 
+* Despite the popularity of the Hippocratic oath, it is important to note that most medical schools have created modernized versions of it due to outdated ideas within it 
+* The original oath had absolute bans on abortion and euthanasia, emphasizes physician authority over patient autonomy, fails to take into account informed consent, as well as myriad modern quandaries. 
+
+* When considering a code of ethics, it is important to consider it within the relevant context and be prepared for it to constantly evolve and grow with the changing needs of the world. 
+
 ## Data Science Ethics
 We will introduce principles of professional ethics for data science and give examples of legal obligations, as well as guidelines issued by professional societies. **There is no official data scientist's oath**-—although attempts to forge one exist ([National Academies of Science, Engineering, and Medicine, 2018](https://www.nationalacademies.org/our-work/responsible-computing-research-ethics-and-governance-of-computing-research-and-its-applications#sectionProjectScope)). 
 
