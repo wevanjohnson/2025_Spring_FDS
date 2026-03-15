@@ -19,10 +19,10 @@ Students who take this course will:
 An introductory course in statistics, biostatistics, epidemiology, or equivalent experience in statistical analysis is recommended (but not required). Programming experience in R is also recommended (again not required). Students without this experience will be encouraged to utilize the asynchronous resources provided at the end of this syllabus to obtain these skills before or during the course. Please contact Dr. Johnson to obtain a list of the required proficiencies.   
 
 ### COURSE FORMAT:
-This class will be taught virtually using a synchronous remote modality, although students will be provided a classroom to gather for each lecture. A co-instructor will be present in the classroom for each lecture. Class will occur Mondays and Wednesdays from 10:00am-11:50am. Courses may also be recorded and made available for students who need to miss classes due to personal reasons, illness, or research related needs.
+This class will be taught virtually using a synchronous remote modality, although students will be provided a classroom to gather for each lecture. A co-instructor will be present in the classroom for each lecture. Class will occur **Mondays and Wednesdays from 10:00am-11:50am**. Courses may also be recorded and made available for students who need to miss classes due to personal reasons, illness, or research related needs.
 
 ### ZOOM LINK AND CLASSROOM:
-Zoom Meeting ID for all sessions is 95398689633, with the passcode: 065918, or use the following direct link (the link is also available though the course GitHub page): https://rutgers.zoom.us/j/95398689633?pwd=fLMqBabEI3KR9qFIFYbswe08IdZM1Q.1.
+Zoom Meeting ID for all sessions is **95398689633**, with the passcode: **065918**, or use the following direct link (the link is also available though the course GitHub page): https://rutgers.zoom.us/j/95398689633?pwd=fLMqBabEI3KR9qFIFYbswe08IdZM1Q.1.
 
 Room B554 will also be available for the students to congregate for each lecture, with a co-intructor present. 
 
