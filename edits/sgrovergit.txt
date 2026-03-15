@@ -1,0 +1,7 @@
+Cloned the folder
+Changed font in README.md syllabus file. 
+Corrected grammer: “Students are expected to use R and GitHub throughout this course.”
+Added file with the above documentation.
+Highlighted R package pdf in Lecture 6
+Created hello.txt
+
