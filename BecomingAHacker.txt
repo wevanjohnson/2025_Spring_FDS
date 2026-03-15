@@ -1,0 +1,1 @@
+To become a hacker (or to make people sitting behind you think you're a hacker) change your Git GUI to be as cool looking as possible. Instructions for doing so will be provided in this course.
